@@ -1,0 +1,16 @@
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+indent_size = 4
+indent_style = tab
+insert_final_newline = false
+max_line_length = 120
+tab_width = 4
+# noinspection EditorConfigKeyCorrectness
+disabled_rules=no-wildcard-imports,no-unused-imports
+
+[{*.kt,*.kts}]
+ij_kotlin_allow_trailing_comma = true
+ij_kotlin_code_style_defaults = KOTLIN_OFFICIAL
