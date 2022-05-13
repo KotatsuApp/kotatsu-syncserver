@@ -2,6 +2,7 @@ plugins {
     id 'application'
     id 'org.jetbrains.kotlin.jvm' version '1.6.21'
     id 'org.jetbrains.kotlin.plugin.serialization' version '1.6.21'
+	id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
 group "org.kotatsu"
@@ -10,6 +11,10 @@ mainClassName = "org.kotatsu.ApplicationKt"
 
 def isDevelopment = project.ext.has("development")
 applicationDefaultJvmArgs = ["-Dio.ktor.development=$isDevelopment"]
+
+application {
+	mainClass.set('io.ktor.server.netty.EngineMain')
+}
 
 repositories {
     mavenCentral()
@@ -26,8 +31,8 @@ dependencies {
 	implementation "io.ktor:ktor-server-compression:$ktor_version"
 
     implementation "org.ktorm:ktorm-core:$ktorm_version"
-    implementation "org.ktorm:ktorm-support-sqlite:$ktorm_version"
-    implementation "org.xerial:sqlite-jdbc:3.36.0.3"
+    implementation "org.ktorm:ktorm-support-mysql:$ktorm_version"
+	implementation 'mysql:mysql-connector-java:8.0.29'
 
     implementation "ch.qos.logback:logback-classic:$logback_version"
     testImplementation "io.ktor:ktor-server-tests:$ktor_version"

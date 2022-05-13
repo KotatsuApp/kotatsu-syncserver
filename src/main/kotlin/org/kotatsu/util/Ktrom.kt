@@ -14,6 +14,8 @@ fun <E : Entity<E>, T : Table<E>> EntitySequence<E, T>.addOrUpdate(entity: E): B
 	return runCatching {
 		add(entity)
 	}.onFailure {
-		// TODO
+		if (it.message?.startsWith("Duplicate entry") != true) { // TODO fix
+			it.printStackTrace()
+		}
 	}.isSuccess
 }

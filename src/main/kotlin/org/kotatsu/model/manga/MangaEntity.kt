@@ -2,7 +2,6 @@ package org.kotatsu.model.manga
 
 import org.kotatsu.database
 import org.kotatsu.model.mangaTags
-import org.kotatsu.util.addOrUpdate
 import org.ktorm.dsl.eq
 import org.ktorm.entity.Entity
 import org.ktorm.entity.filter
@@ -23,19 +22,10 @@ interface MangaEntity : Entity<MangaEntity> {
 	var author: String?
 	var source: String
 
-	var tags: Collection<TagEntity>
+	val tags: Collection<TagEntity>
 		get() = database.mangaTags.filter {
 			it.manga eq id
 		}.mapTo(HashSet()) { it.tag }
-		set(value) {
-			for (t in value) {
-				val e = MangaTagEntity {
-					manga = this@MangaEntity
-					tag = t
-				}
-				database.mangaTags.addOrUpdate(e)
-			}
-		}
 
 	companion object : Entity.Factory<MangaEntity>()
 }

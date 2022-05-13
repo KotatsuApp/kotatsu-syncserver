@@ -35,11 +35,9 @@ fun Application.configureAuthentication() {
 	}
 }
 
-val ApplicationCall.currentUser: UserEntity
+val ApplicationCall.currentUser: UserEntity?
 	get() {
-		val principal = principal<JWTPrincipal>()
-		requireNotNull(principal)
+		val principal = principal<JWTPrincipal>() ?: return null
 		val userId = principal.payload.getClaim("user_id").asInt()
-		val user = database.users.find { it.id eq userId }
-		return requireNotNull(user)
+		return database.users.find { it.id eq userId }
 	}

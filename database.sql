@@ -1,100 +1,125 @@
+drop table if exists favourites;
+
+drop table if exists categories;
+
+drop table if exists history;
+
+drop table if exists manga_tags;
+
+drop table if exists manga;
+
+drop table if exists tags;
+
+drop table if exists users;
+
 create table manga
 (
-    id              integer not null,
-    title           text    not null,
-    alt_title       text,
-    url             text    not null,
-    public_url      text    not null,
-    rating          REAL    not null,
-    is_nsfw         integer not null,
-    cover_url       text    not null,
-    large_cover_url text,
-    state           text,
-    author          text,
-    source          text    not null,
-    constraint manga_pk
-        primary key (id)
+    id              bigint       not null,
+    title           varchar(84)  not null,
+    alt_title       varchar(84)  null,
+    url             varchar(255) not null,
+    public_url      varchar(255) not null,
+    rating          float        not null,
+    is_nsfw         tinyint(1)   not null,
+    cover_url       varchar(255) not null,
+    large_cover_url varchar(255) null,
+    state           char(24)     null,
+    author          varchar(32)  null,
+    source          varchar(32)  not null,
+    primary key (id)
 );
 
 create table tags
 (
-    id     integer not null,
-    title  text    not null,
-    key    text    not null,
-    source text    not null,
-    constraint tags_pk
-        primary key (id)
+    id     bigint      not null,
+    title  varchar(64) not null,
+    `key`  varchar(120) not null,
+    source varchar(32) not null,
+    primary key (id)
 );
 
 create table manga_tags
 (
-    manga_id integer not null,
-    tag_id   integer not null,
-    constraint manga_tags_pk
-        primary key (tag_id, manga_id),
-    foreign key (manga_id) references manga
-        on delete cascade,
-    foreign key (tag_id) references tags
-        on delete restrict
+    manga_id bigint not null,
+    tag_id   bigint not null,
+    primary key (manga_id, tag_id),
+    constraint manga_tags_ibfk_1
+        foreign key (tag_id) references tags (id),
+    constraint manga_tags_ibfk_2
+        foreign key (manga_id) references manga (id)
+            on delete cascade
 );
+
+create index tag_id
+    on manga_tags (tag_id);
 
 create table users
 (
-    id                        integer not null,
-    email                     text    not null,
-    password                  text    not null,
-    nickname                  text,
-    favourites_sync_timestamp integer,
-    history_sync_timestamp    integer,
-    constraint users_pk
-        primary key (id autoincrement)
+    id                        int auto_increment
+        primary key,
+    email                     varchar(120) not null,
+    password                  char(32) not null,
+    nickname                  varchar(84) null,
+    favourites_sync_timestamp bigint   null,
+    history_sync_timestamp    bigint   null
 );
 
 create table categories
 (
-    id         integer not null,
-    created_at integer not null,
-    sort_key   integer not null,
-    title      text    not null,
-    "order"    text    not null,
-    user_id    integer not null,
-    constraint categories_pk
-        primary key (user_id, id),
-    foreign key (user_id) references users
-        on delete cascade
+    id         bigint               not null,
+    created_at bigint	            not null,
+    sort_key   int                  not null,
+    title      varchar(120)         not null,
+    `order`    char(16)             not null,
+    user_id    int                  not null,
+    track      tinyint(1) default 1 not null,
+    primary key (user_id, id),
+    constraint id
+        unique (id),
+    constraint categories_ibfk_1
+        foreign key (user_id) references users (id)
+            on delete cascade
 );
 
 create table favourites
 (
-    manga_id    integer not null,
-    category_id integer not null,
-    created_at  integer not null,
-    user_id     integer not null,
-    constraint favourites_pk
-        primary key (user_id, manga_id, category_id),
-    foreign key (manga_id) references manga,
-    foreign key (user_id) references users,
-    constraint favourites_categories_id_fk
-        foreign key (category_id) references categories (id)
+    manga_id    bigint     not null,
+    category_id bigint     not null,
+    created_at  bigint     not null,
+    user_id     int        not null,
+    primary key (manga_id, category_id, user_id),
+    constraint favourites_categories_id_pk
+        foreign key (category_id, user_id) references categories (id, user_id),
+    constraint favourites_ibfk_1
+        foreign key (manga_id) references manga (id),
+    constraint favourites_ibfk_2
+        foreign key (user_id) references users (id)
 );
+
+create index user_id
+    on favourites (user_id);
 
 create table history
 (
-    manga_id   integer not null,
-    created_at integer not null,
-    updated_at integer not null,
-    chapter_id integer not null,
-    page       integer not null,
-    scroll     real    not null,
-    user_id    integer not null,
-    constraint history_pk
-        primary key (user_id, manga_id),
-    foreign key (manga_id) references manga,
-    foreign key (user_id) references users
-        on delete cascade
+    manga_id   bigint     not null,
+    created_at bigint     not null,
+    updated_at bigint     not null,
+    chapter_id bigint     not null,
+    page       smallint   not null,
+    scroll     double     not null,
+    user_id    int        not null,
+    primary key (user_id, manga_id),
+    constraint history_ibfk_1
+        foreign key (manga_id) references manga (id),
+    constraint history_ibfk_2
+        foreign key (user_id) references users (id)
+            on delete cascade
 );
 
-create unique index users_email_uindex
+create index manga_id
+    on history (manga_id);
+
+create index users_email_uindex
     on users (email);
 
 
