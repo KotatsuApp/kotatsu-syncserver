@@ -1,0 +1,21 @@
+[Unit]
+Description=Kotatsu sync server
+After=network.target
+After=mysql.service
+Requires=mysql.service
+
+[Service]
+Type=simple
+User=kotatsu
+Group=kotatsu
+
+PIDFile=/opt/kotatsu/service.pid
+WorkingDirectory=/opt/kotatsu/
+Environment=JWT_SECRET=replaceme
+Environment=DATABASE_USER=replaceme
+Environment=DATABASE_PASSWORD=replaceme
+
+ExecStart=java -jar kotatsu-syncserver-0.0.1-all.jar
+
+[Install]
+WantedBy=multi-user.target
