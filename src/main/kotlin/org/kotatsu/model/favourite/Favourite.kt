@@ -5,7 +5,7 @@ import kotlinx.serialization.Serializable
 import org.kotatsu.model.manga.Manga
 
 @Serializable
-class Favourite(
+data class Favourite(
 	@SerialName("manga_id") val mangaId: Long,
 	@SerialName("manga") val manga: Manga,
 	@SerialName("category_id") val categoryId: Int,

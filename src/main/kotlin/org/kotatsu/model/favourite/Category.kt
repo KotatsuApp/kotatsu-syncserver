@@ -4,7 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-class Category(
+data class Category(
 	@SerialName("category_id") val id: Int,
 	@SerialName("created_at") var createdAt: Long,
 	@SerialName("sort_key") var sortKey: Int,

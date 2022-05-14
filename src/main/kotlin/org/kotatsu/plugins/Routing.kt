@@ -17,7 +17,6 @@ import java.util.*
 import java.util.concurrent.TimeUnit
 
 fun Application.configureRouting() {
-
 	routing {
 		authenticate("auth-jwt") {
 			post<FavouritesPackage>("/resource/favourites") { request ->
@@ -29,7 +28,11 @@ fun Application.configureRouting() {
 					}
 					val response = syncFavourites(user, request)
 					user.setFavouritesSynchronized(request.timestamp)
-					call.respond(response)
+					if (response.contentEquals(request)) {
+						call.respond(HttpStatusCode.NoContent)
+					} else {
+						call.respond(response)
+					}
 				}
 			}
 			post<HistoryPackage>("/resource/history") { request ->
@@ -41,7 +44,11 @@ fun Application.configureRouting() {
 					}
 					val response = syncHistory(user, request)
 					user.setHistorySynchronized(request.timestamp)
-					call.respond(response)
+					if (response.contentEquals(request)) {
+						call.respond(HttpStatusCode.NoContent)
+					} else {
+						call.respond(response)
+					}
 				}
 			}
 			get("/me") {
@@ -60,7 +67,7 @@ fun Application.configureRouting() {
 			val audience = config.property("jwt.audience").getString()
 			val user = getOrCreateUser(request)
 			if (user == null) {
-				call.respond(HttpStatusCode.BadRequest)
+				call.respond(HttpStatusCode.BadRequest, "Wrong password")
 				return@post
 			}
 			val lifetime = TimeUnit.DAYS.toMillis(30)
