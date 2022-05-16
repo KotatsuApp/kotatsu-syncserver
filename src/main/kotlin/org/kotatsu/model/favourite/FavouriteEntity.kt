@@ -9,6 +9,7 @@ interface FavouriteEntity : Entity<FavouriteEntity> {
 	var manga: MangaEntity
 	var categoryId: Int
 	var createdAt: Long
+	var deletedAt: Long
 
 	var user: UserEntity
 

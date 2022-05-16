@@ -15,16 +15,18 @@ import org.ktorm.entity.map
 
 fun syncFavourites(
 	user: UserEntity,
-	request: FavouritesPackage,
+	request: FavouritesPackage?,
 ): FavouritesPackage {
-	for (category in request.favouriteCategories) {
-		val entity = category.toEntity(user)
-		database.categories.addOrUpdate(entity)
-	}
-	for (favourite in request.favourites) {
-		val mangaEntity = upsertManga(favourite.manga)
-		val entity = favourite.toEntity(mangaEntity, user)
-		database.favourites.addOrUpdate(entity)
+	if (request != null) {
+		for (category in request.favouriteCategories) {
+			val entity = category.toEntity(user)
+			database.categories.addOrUpdate(entity)
+		}
+		for (favourite in request.favourites) {
+			val mangaEntity = upsertManga(favourite.manga)
+			val entity = favourite.toEntity(mangaEntity, user)
+			database.favourites.addOrUpdate(entity)
+		}
 	}
 	return FavouritesPackage(
 		favouriteCategories = database.categories.filter { it.userId eq user.id }

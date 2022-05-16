@@ -11,6 +11,7 @@ object CategoriesTable : Table<CategoryEntity>("categories") {
 	val track = boolean("track").bindTo { it.track }
 	val title = varchar("title").bindTo { it.title }
 	val order = varchar("order").bindTo { it.order }
+	val deletedAt = long("deleted_at").bindTo { it.deletedAt }
 
 	val userId = int("user_id").primaryKey().references(UsersTable) { it.user }
 }

@@ -1,5 +1,6 @@
 package org.kotatsu.model.history
 
+import org.kotatsu.model.favourite.CategoriesTable.bindTo
 import org.kotatsu.model.manga.MangaTable
 import org.kotatsu.model.user.UsersTable
 import org.ktorm.schema.Table
@@ -16,6 +17,7 @@ object HistoryTable : Table<HistoryEntity>("history") {
 	val chapterId = long("chapter_id").bindTo { it.chapterId }
 	val page = int("page").bindTo { it.page }
 	val scroll = float("scroll").bindTo { it.scroll }
+	val deletedAt = long("deleted_at").bindTo { it.deletedAt }
 
 	val userId = int("user_id").references(UsersTable) { it.user }.primaryKey()
 }

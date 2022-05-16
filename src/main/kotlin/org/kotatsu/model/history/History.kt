@@ -13,4 +13,5 @@ data class History(
 	@SerialName("chapter_id") val chapterId: Long,
 	@SerialName("page") val page: Int,
 	@SerialName("scroll") val scroll: Float,
+	@SerialName("deleted_at") var deletedAt: Long,
 )

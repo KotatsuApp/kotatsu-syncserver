@@ -11,4 +11,5 @@ data class Category(
 	@SerialName("track") var track: Int,
 	@SerialName("title") var title: String,
 	@SerialName("order") var order: String,
+	@SerialName("deleted_at") var deletedAt: Long,
 )

@@ -35,6 +35,15 @@ fun Application.configureRouting() {
 					}
 				}
 			}
+			get("/resource/favourites") {
+				val user = call.currentUser
+				if (user == null) {
+					call.respond(HttpStatusCode.Unauthorized)
+					return@get
+				}
+				val response = syncFavourites(user, null)
+				call.respond(response)
+			}
 			post<HistoryPackage>("/resource/history") { request ->
 				database.useTransaction {
 					val user = call.currentUser
@@ -49,6 +58,17 @@ fun Application.configureRouting() {
 					} else {
 						call.respond(response)
 					}
+				}
+			}
+			get("/resource/history") {
+				database.useTransaction {
+					val user = call.currentUser
+					if (user == null) {
+						call.respond(HttpStatusCode.Unauthorized)
+						return@get
+					}
+					val response = syncHistory(user, null)
+					call.respond(response)
 				}
 			}
 			get("/me") {

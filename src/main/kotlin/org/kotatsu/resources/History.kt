@@ -13,12 +13,14 @@ import org.ktorm.entity.map
 
 fun syncHistory(
 	user: UserEntity,
-	request: HistoryPackage,
+	request: HistoryPackage?,
 ): HistoryPackage {
-	for (history in request.history) {
-		val mangaEntity = upsertManga(history.manga)
-		val entity = history.toEntity(mangaEntity, user)
-		database.history.addOrUpdate(entity)
+	if (request != null) {
+		for (history in request.history) {
+			val mangaEntity = upsertManga(history.manga)
+			val entity = history.toEntity(mangaEntity, user)
+			database.history.addOrUpdate(entity)
+		}
 	}
 	return HistoryPackage(
 		database.history

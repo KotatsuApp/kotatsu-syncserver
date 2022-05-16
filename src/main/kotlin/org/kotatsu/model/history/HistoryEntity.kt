@@ -13,6 +13,7 @@ interface HistoryEntity : Entity<HistoryEntity> {
 	var chapterId: Long
 	var page: Int
 	var scroll: Float
+	var deletedAt: Long
 
 	var user: UserEntity
 

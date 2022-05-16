@@ -11,6 +11,7 @@ interface CategoryEntity : Entity<CategoryEntity> {
 	var track: Boolean
 	var title: String
 	var order: String
+	var deletedAt: Long
 
 	var user: UserEntity
 

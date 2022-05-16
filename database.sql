@@ -66,13 +66,14 @@ create table users
 
 create table categories
 (
-    id         bigint               not null,
-    created_at bigint	            not null,
-    sort_key   int                  not null,
-    title      varchar(120)         not null,
-    `order`    char(16)             not null,
-    user_id    int                  not null,
-    track      tinyint(1) default 1 not null,
+    id         bigint       not null,
+    created_at bigint	    not null,
+    sort_key   int          not null,
+    title      varchar(120) not null,
+    `order`    char(16)     not null,
+    user_id    int          not null,
+    track      tinyint(1) 	not null,
+    deleted_at bigint		not null,
     primary key (user_id, id),
     constraint id
         unique (id),
@@ -86,6 +87,7 @@ create table favourites
     manga_id    bigint     not null,
     category_id bigint     not null,
     created_at  bigint     not null,
+	deleted_at  bigint	   not null,
     user_id     int        not null,
     primary key (manga_id, category_id, user_id),
     constraint favourites_categories_id_pk
@@ -107,6 +109,7 @@ create table history
     chapter_id bigint     not null,
     page       smallint   not null,
     scroll     double     not null,
+	deleted_at bigint	  not null,
     user_id    int        not null,
     primary key (user_id, manga_id),
     constraint history_ibfk_1

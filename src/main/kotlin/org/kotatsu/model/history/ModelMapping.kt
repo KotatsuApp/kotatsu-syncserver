@@ -12,6 +12,7 @@ fun HistoryEntity.toHistory() = History(
 	chapterId = chapterId,
 	page = page,
 	scroll = scroll,
+	deletedAt = deletedAt,
 )
 
 fun History.toEntity(
@@ -24,5 +25,6 @@ fun History.toEntity(
 	chapterId = this@toEntity.chapterId
 	page = this@toEntity.page
 	scroll = this@toEntity.scroll
+	deletedAt = this@toEntity.deletedAt
 	user = userEntity
 }
