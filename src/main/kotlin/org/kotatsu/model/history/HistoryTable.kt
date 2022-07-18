@@ -17,6 +17,7 @@ object HistoryTable : Table<HistoryEntity>("history") {
 	val chapterId = long("chapter_id").bindTo { it.chapterId }
 	val page = int("page").bindTo { it.page }
 	val scroll = float("scroll").bindTo { it.scroll }
+	val percent = float("percent").bindTo { it.percent }
 	val deletedAt = long("deleted_at").bindTo { it.deletedAt }
 
 	val userId = int("user_id").references(UsersTable) { it.user }.primaryKey()

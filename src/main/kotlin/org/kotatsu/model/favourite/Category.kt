@@ -12,4 +12,5 @@ data class Category(
 	@SerialName("title") var title: String,
 	@SerialName("order") var order: String,
 	@SerialName("deleted_at") var deletedAt: Long,
+	@SerialName("show_in_lib") var showInLib: Int,
 )

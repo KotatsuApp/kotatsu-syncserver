@@ -12,6 +12,7 @@ interface CategoryEntity : Entity<CategoryEntity> {
 	var title: String
 	var order: String
 	var deletedAt: Long
+	var showInLib: Boolean
 
 	var user: UserEntity
 
