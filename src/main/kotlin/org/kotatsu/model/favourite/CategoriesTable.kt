@@ -12,6 +12,7 @@ object CategoriesTable : Table<CategoryEntity>("categories") {
 	val title = varchar("title").bindTo { it.title }
 	val order = varchar("order").bindTo { it.order }
 	val deletedAt = long("deleted_at").bindTo { it.deletedAt }
+	val showInLib = boolean("show_in_lib").bindTo { it.showInLib }
 
 	val userId = int("user_id").primaryKey().references(UsersTable) { it.user }
 }

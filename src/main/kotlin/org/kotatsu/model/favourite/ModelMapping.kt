@@ -13,6 +13,7 @@ fun CategoryEntity.toCategory() = Category(
 	title = title,
 	order = order,
 	track = track.toInt(),
+	showInLib = showInLib.toInt(),
 	deletedAt = deletedAt,
 )
 
@@ -23,6 +24,7 @@ fun Category.toEntity(userEntity: UserEntity) = CategoryEntity {
 	title = this@toEntity.title
 	order = this@toEntity.order
 	track = this@toEntity.track.toBoolean()
+	showInLib = this@toEntity.showInLib.toBoolean()
 	deletedAt = this@toEntity.deletedAt
 	user = userEntity
 }
@@ -31,6 +33,7 @@ fun FavouriteEntity.toFavourite() = Favourite(
 	mangaId = manga.id,
 	manga = manga.toManga(),
 	categoryId = categoryId,
+	sortKey = sortKey,
 	createdAt = createdAt,
 	deletedAt = deletedAt,
 )
@@ -41,6 +44,7 @@ fun Favourite.toEntity(
 ) = FavouriteEntity {
 	manga = mangaEntity
 	categoryId = this@toEntity.categoryId
+	sortKey = this@toEntity.sortKey
 	createdAt = this@toEntity.createdAt
 	deletedAt = this@toEntity.deletedAt
 	user = userEntity
