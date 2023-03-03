@@ -10,28 +10,29 @@ import org.kotatsu.model.mangaTags
 import org.kotatsu.model.tags
 import org.kotatsu.util.addOrUpdate
 import org.kotatsu.util.toBoolean
+import org.kotatsu.util.truncate
 
 fun upsertManga(manga: Manga): MangaEntity {
 	val mangaEntity = MangaEntity {
 		id = manga.id
-		title = manga.title
-		altTitle = manga.altTitle
-		url = manga.url
-		publicUrl = manga.publicUrl
+		title = manga.title.truncate(84)
+		altTitle = manga.altTitle?.truncate(84)
+		url = manga.url.truncate(255)
+		publicUrl = manga.publicUrl.truncate(255)
 		rating = manga.rating
 		isNsfw = manga.isNsfw.toBoolean()
-		coverUrl = manga.coverUrl
+		coverUrl = manga.coverUrl.truncate(255)
 		state = manga.state
-		author = manga.author
-		source = manga.source
+		author = manga.author?.truncate(32)
+		source = manga.source.truncate(32)
 	}
 	database.manga.addOrUpdate(mangaEntity)
 	manga.tags.forEach { tag ->
 		val tagEntity = TagEntity {
 			id = tag.id
-			title = tag.title
-			key = tag.key
-			source = tag.source
+			title = tag.title.truncate(64)
+			key = tag.key.truncate(120)
+			source = tag.source.truncate(32)
 		}
 		database.tags.addOrUpdate(tagEntity)
 		val mangaTagEntity = MangaTagEntity {

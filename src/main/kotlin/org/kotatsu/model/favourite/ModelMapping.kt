@@ -5,6 +5,7 @@ import org.kotatsu.model.manga.toManga
 import org.kotatsu.model.user.UserEntity
 import org.kotatsu.util.toBoolean
 import org.kotatsu.util.toInt
+import org.kotatsu.util.truncate
 
 fun CategoryEntity.toCategory() = Category(
 	id = id,
@@ -21,7 +22,7 @@ fun Category.toEntity(userEntity: UserEntity) = CategoryEntity {
 	id = this@toEntity.id
 	createdAt = this@toEntity.createdAt
 	sortKey = this@toEntity.sortKey
-	title = this@toEntity.title
+	title = this@toEntity.title.truncate(120)
 	order = this@toEntity.order
 	track = this@toEntity.track.toBoolean()
 	showInLib = this@toEntity.showInLib.toBoolean()
