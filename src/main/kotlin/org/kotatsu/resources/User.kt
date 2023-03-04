@@ -1,15 +1,13 @@
 package org.kotatsu.resources
 
 import org.kotatsu.database
-import org.kotatsu.model.user.AuthRequest
-import org.kotatsu.model.user.UserEntity
-import org.kotatsu.model.user.UserInfo
-import org.kotatsu.model.user.toUserInfo
+import org.kotatsu.model.user.*
 import org.kotatsu.model.users
 import org.kotatsu.util.md5
 import org.ktorm.dsl.eq
-import org.ktorm.entity.add
+import org.ktorm.dsl.insertAndGenerateKey
 import org.ktorm.entity.find
+import org.ktorm.entity.singleOrNull
 
 fun getOrCreateUser(request: AuthRequest): UserInfo? {
 	val passDigest = request.password.md5()
@@ -22,18 +20,16 @@ fun getOrCreateUser(request: AuthRequest): UserInfo? {
 }
 
 private fun registerUser(request: AuthRequest, passwordDigest: String): UserInfo? {
-	val entity = UserEntity {
-		email = request.email
-		password = passwordDigest
-		nickname = null
-		favouritesSyncTimestamp = null
-		historySyncTimestamp = null
-	}
-	return if (database.users.add(entity) > 0 && entity.id > 0) {
-		entity.toUserInfo()
-	} else {
-		null
-	}
+	val userId = database.insertAndGenerateKey(UsersTable) {
+		set(it.email, request.email)
+		set(it.password, passwordDigest)
+		set(it.nickname, null)
+		set(it.favouritesSyncTimestamp, null)
+		set(it.historySyncTimestamp, null)
+	} as Int
+	return database.users
+		.singleOrNull { (it.id eq userId) }
+		?.toUserInfo()
 }
 
 fun UserEntity.setFavouritesSynchronized(timestamp: Long) {

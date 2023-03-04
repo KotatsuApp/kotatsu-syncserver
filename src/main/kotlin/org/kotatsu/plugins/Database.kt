@@ -12,7 +12,7 @@ fun Application.configureDatabase() {
 	val port = config.property("database.port").getString()
 	database = Database.connect(
 		url = "jdbc:mysql://$host:$port/$name",
-		driver = "com.mysql.jdbc.Driver",
+		driver = "com.mysql.cj.jdbc.Driver",
 		user = config.property("database.user").getString(),
 		password = config.property("database.password").getString(),
 		dialect = MySqlDialect(),

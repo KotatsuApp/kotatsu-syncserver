@@ -13,6 +13,7 @@ import org.kotatsu.model.history.HistoryPackage
 import org.kotatsu.model.user.AuthRequest
 import org.kotatsu.model.user.toUserInfo
 import org.kotatsu.resources.*
+import org.ktorm.database.TransactionIsolation
 import java.util.*
 import java.util.concurrent.TimeUnit
 
@@ -20,7 +21,7 @@ fun Application.configureRouting() {
 	routing {
 		authenticate("auth-jwt") {
 			post<FavouritesPackage>("/resource/favourites") { request ->
-				database.useTransaction {
+				database.useTransaction(TransactionIsolation.READ_COMMITTED) {
 					val user = call.currentUser
 					if (user == null) {
 						call.respond(HttpStatusCode.Unauthorized)
@@ -45,7 +46,7 @@ fun Application.configureRouting() {
 				call.respond(response)
 			}
 			post<HistoryPackage>("/resource/history") { request ->
-				database.useTransaction {
+				database.useTransaction(TransactionIsolation.READ_COMMITTED) {
 					val user = call.currentUser
 					if (user == null) {
 						call.respond(HttpStatusCode.Unauthorized)
@@ -61,7 +62,7 @@ fun Application.configureRouting() {
 				}
 			}
 			get("/resource/history") {
-				database.useTransaction {
+				database.useTransaction(TransactionIsolation.READ_COMMITTED) {
 					val user = call.currentUser
 					if (user == null) {
 						call.respond(HttpStatusCode.Unauthorized)

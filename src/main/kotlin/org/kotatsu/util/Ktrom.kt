@@ -6,6 +6,7 @@ import org.ktorm.entity.add
 import org.ktorm.entity.update
 import org.ktorm.schema.Table
 
+@Deprecated("")
 fun <E : Entity<E>, T : Table<E>> EntitySequence<E, T>.addOrUpdate(entity: E): Boolean {
 	val updateResult = update(entity)
 	if (updateResult > 0) {
