@@ -28,7 +28,7 @@ fun Application.configureRouting() {
 						return@post
 					}
 					val response = syncFavourites(user, request)
-					user.setFavouritesSynchronized(request.timestamp)
+					user.setFavouritesSynchronized(System.currentTimeMillis())
 					if (response.contentEquals(request)) {
 						call.respond(HttpStatusCode.NoContent)
 					} else {
@@ -53,7 +53,7 @@ fun Application.configureRouting() {
 						return@post
 					}
 					val response = syncHistory(user, request)
-					user.setHistorySynchronized(request.timestamp)
+					user.setHistorySynchronized(System.currentTimeMillis())
 					if (response.contentEquals(request)) {
 						call.respond(HttpStatusCode.NoContent)
 					} else {

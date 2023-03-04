@@ -8,7 +8,7 @@ import kotlin.jvm.internal.Intrinsics
 data class FavouritesPackage(
 	@SerialName("favourite_categories") val favouriteCategories: List<Category>,
 	@SerialName("favourites") val favourites: List<Favourite>,
-	@SerialName("timestamp") val timestamp: Long,
+	@SerialName("timestamp") val timestamp: Long?,
 ) {
 
 	fun contentEquals(other: FavouritesPackage): Boolean {

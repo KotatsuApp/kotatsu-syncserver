@@ -7,7 +7,7 @@ import kotlin.jvm.internal.Intrinsics
 @Serializable
 data class HistoryPackage(
 	@SerialName("history") val history: List<History>,
-	@SerialName("timestamp") val timestamp: Long,
+	@SerialName("timestamp") val timestamp: Long?,
 ) {
 
 	fun contentEquals(other: HistoryPackage): Boolean {
