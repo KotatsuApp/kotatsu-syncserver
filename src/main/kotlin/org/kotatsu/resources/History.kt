@@ -17,7 +17,7 @@ fun syncHistory(
 ): HistoryPackage {
 	if (request != null) {
 		for (history in request.history) {
-			upsertManga(history.manga)
+			database.upsertManga(history.manga)
 			database.insertOrUpdate(HistoryTable) {
 				set(it.manga, history.mangaId)
 				set(it.createdAt, history.createdAt)
@@ -28,6 +28,15 @@ fun syncHistory(
 				set(it.percent, history.percent)
 				set(it.deletedAt, history.deletedAt)
 				set(it.userId, user.id)
+				onDuplicateKey {
+					set(it.createdAt, history.createdAt)
+					set(it.updatedAt, history.updatedAt)
+					set(it.chapterId, history.chapterId)
+					set(it.page, history.page)
+					set(it.scroll, history.scroll)
+					set(it.percent, history.percent)
+					set(it.deletedAt, history.deletedAt)
+				}
 			}
 		}
 	}
