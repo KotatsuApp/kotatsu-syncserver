@@ -52,6 +52,6 @@ fun syncFavourites(
 		favourites = database.favourites
 			.filter { it.userId eq user.id }
 			.map { it.toFavourite() },
-		timestamp = System.currentTimeMillis(),
+		timestamp = user.favouritesSyncTimestamp ?: 0L
 	)
 }

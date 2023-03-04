@@ -32,9 +32,9 @@ fun syncHistory(
 		}
 	}
 	return HistoryPackage(
-		database.history
+		history = database.history
 			.filter { it.userId eq user.id }
 			.map { it.toHistory() },
-		System.currentTimeMillis(),
+		timestamp = user.historySyncTimestamp ?: 0L,
 	)
 }
