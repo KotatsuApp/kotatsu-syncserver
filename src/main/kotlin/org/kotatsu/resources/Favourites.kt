@@ -18,18 +18,20 @@ fun syncFavourites(
 	request: FavouritesPackage?,
 ): FavouritesPackage {
 	if (request != null) {
-		database.bulkInsertOrUpdate(CategoriesTable) {
-			for (category in request.favouriteCategories) {
-				item {
-					set(it.id, category.id)
-					set(it.createdAt, category.createdAt)
-					set(it.sortKey, category.sortKey)
-					set(it.title, category.title.truncate(120))
-					set(it.order, category.order)
-					set(it.track, category.track.toBoolean())
-					set(it.showInLib, category.showInLib.toBoolean())
-					set(it.deletedAt, category.deletedAt)
-					set(it.userId, user.id)
+		if (request.favouriteCategories.isNotEmpty()) {
+			database.bulkInsertOrUpdate(CategoriesTable) {
+				for (category in request.favouriteCategories) {
+					item {
+						set(it.id, category.id)
+						set(it.createdAt, category.createdAt)
+						set(it.sortKey, category.sortKey)
+						set(it.title, category.title.truncate(120))
+						set(it.order, category.order)
+						set(it.track, category.track.toBoolean())
+						set(it.showInLib, category.showInLib.toBoolean())
+						set(it.deletedAt, category.deletedAt)
+						set(it.userId, user.id)
+					}
 				}
 			}
 		}

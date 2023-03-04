@@ -24,21 +24,23 @@ fun upsertManga(manga: Manga) {
 		set(it.author, manga.author?.truncate(32))
 		set(it.mangaSource, manga.source.truncate(32))
 	}
-	database.bulkInsertOrUpdate(TagsTable) {
-		for (tag in manga.tags) {
-			item {
-				set(it.id, tag.id)
-				set(it.title, tag.title.truncate(64))
-				set(it.key, tag.key.truncate(120))
-				set(it.source, tag.source.truncate(32))
+	if (manga.tags.isNotEmpty()) {
+		database.bulkInsertOrUpdate(TagsTable) {
+			for (tag in manga.tags) {
+				item {
+					set(it.id, tag.id)
+					set(it.title, tag.title.truncate(64))
+					set(it.key, tag.key.truncate(120))
+					set(it.source, tag.source.truncate(32))
+				}
 			}
 		}
-	}
-	database.bulkInsertOrUpdate(MangaTagsTable) {
-		for (tag in manga.tags) {
-			item {
-				set(it.manga, manga.id)
-				set(it.tag, tag.id)
+		database.bulkInsertOrUpdate(MangaTagsTable) {
+			for (tag in manga.tags) {
+				item {
+					set(it.manga, manga.id)
+					set(it.tag, tag.id)
+				}
 			}
 		}
 	}
