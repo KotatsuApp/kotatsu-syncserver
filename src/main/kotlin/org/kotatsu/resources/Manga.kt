@@ -6,12 +6,13 @@ import org.kotatsu.model.manga.MangaTagsTable
 import org.kotatsu.model.manga.TagsTable
 import org.kotatsu.util.toBoolean
 import org.kotatsu.util.truncate
+import org.kotatsu.util.withRetry
 import org.ktorm.database.Database
 import org.ktorm.dsl.insert
 import org.ktorm.support.mysql.insertOrUpdate
 import java.sql.SQLIntegrityConstraintViolationException
 
-fun Database.upsertManga(manga: Manga) {
+suspend fun Database.upsertManga(manga: Manga) = withRetry {
 	insertOrUpdate(MangaTable) {
 		set(it.id, manga.id)
 		set(it.title, manga.title.truncate(84))

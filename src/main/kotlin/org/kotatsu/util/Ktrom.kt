@@ -1,5 +1,7 @@
 package org.kotatsu.util
 
+import com.mysql.cj.jdbc.exceptions.MySQLTransactionRollbackException
+import kotlinx.coroutines.yield
 import org.ktorm.entity.Entity
 import org.ktorm.entity.EntitySequence
 import org.ktorm.entity.add
@@ -19,4 +21,18 @@ fun <E : Entity<E>, T : Table<E>> EntitySequence<E, T>.addOrUpdate(entity: E): B
 			it.printStackTrace()
 		}
 	}.isSuccess
+}
+
+suspend fun withRetry(body: suspend () -> Unit) {
+	var error: MySQLTransactionRollbackException? = null
+	repeat(4) {
+		try {
+			body()
+			return
+		} catch (e: MySQLTransactionRollbackException) {
+			error = e
+			yield()
+		}
+	}
+	throw checkNotNull(error)
 }
