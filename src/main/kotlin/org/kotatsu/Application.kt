@@ -10,9 +10,9 @@ fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
 
 fun Application.module() {
 	configureLogging()
-	configureCompression()
-	configureRouting()
-	configureSerialization()
 	configureAuthentication()
 	configureDatabase()
+	configureCompression()
+	configureSerialization()
+	configureRouting()
 }
