@@ -15,4 +15,5 @@ fun Application.module() {
 	configureCompression()
 	configureSerialization()
 	configureRouting()
+	configureStatusPages()
 }
