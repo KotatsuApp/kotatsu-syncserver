@@ -75,13 +75,14 @@ create table categories
     track       tinyint(1) 	 not null,
     show_in_lib tinyint(1)   not null,
     deleted_at  bigint		 not null,
-    primary key (user_id, id),
-    constraint id
-        unique (id),
+    primary key (id, user_id),
     constraint categories_ibfk_1
         foreign key (user_id) references users (id)
             on delete cascade
 );
+
+create index categories_id_index
+    on categories (id);
 
 create table favourites
 (
