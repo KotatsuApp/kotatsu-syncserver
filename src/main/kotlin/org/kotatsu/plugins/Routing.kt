@@ -88,7 +88,7 @@ fun Application.configureRouting() {
 			val audience = config.property("jwt.audience").getString()
 			val user = getOrCreateUser(request)
 			if (user == null) {
-				call.respond(HttpStatusCode.BadRequest, "Wrong password")
+				call.respondText(text = "Wrong password", status = HttpStatusCode.BadRequest)
 				return@post
 			}
 			val lifetime = TimeUnit.DAYS.toMillis(30)
