@@ -126,7 +126,7 @@ create table history
 create index manga_id
     on history (manga_id);
 
-create index users_email_uindex
+create unique index users_email_uindex
     on users (email);
 
 
