@@ -4,15 +4,16 @@ import org.kotatsu.database
 import org.kotatsu.model.user.*
 import org.kotatsu.model.users
 import org.kotatsu.util.md5
+import org.kotatsu.util.withRetry
 import org.ktorm.dsl.eq
 import org.ktorm.dsl.insertAndGenerateKey
 import org.ktorm.entity.find
 import org.ktorm.entity.singleOrNull
 
-fun getOrCreateUser(request: AuthRequest): UserInfo? {
+suspend fun getOrCreateUser(request: AuthRequest): UserInfo? = withRetry {
 	val passDigest = request.password.md5()
 	val user = database.users.find { (it.email eq request.email) }
-	return when {
+	when {
 		user == null -> registerUser(request, passDigest)
 		user.password == passDigest -> user.toUserInfo()
 		else -> null
