@@ -30,6 +30,7 @@ dependencies {
 	implementation "io.ktor:ktor-server-call-logging:$ktor_version"
 	implementation "io.ktor:ktor-server-compression:$ktor_version"
 	implementation "io.ktor:ktor-server-status-pages:$ktor_version"
+	implementation "io.ktor:ktor-server-auto-head-response:$ktor_version"
 
     implementation "org.ktorm:ktorm-core:$ktorm_version"
     implementation "org.ktorm:ktorm-support-mysql:$ktorm_version"

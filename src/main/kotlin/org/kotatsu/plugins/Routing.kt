@@ -100,5 +100,8 @@ fun Application.configureRouting() {
 				.sign(Algorithm.HMAC256(secret))
 			call.respond(hashMapOf("token" to token))
 		}
+		get("/") {
+			call.respond(HttpStatusCode.OK, "Alive")
+		}
 	}
 }

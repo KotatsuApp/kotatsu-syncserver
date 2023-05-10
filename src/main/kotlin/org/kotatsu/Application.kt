@@ -14,6 +14,7 @@ fun Application.module() {
 	configureDatabase()
 	configureCompression()
 	configureSerialization()
+	configureAutoHead()
 	configureRouting()
 	configureStatusPages()
 }
