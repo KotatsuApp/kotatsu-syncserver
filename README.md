@@ -2,6 +2,11 @@
 
 [Kotatsu](https://github.com/KotatsuApp/Kotatsu) is a free and open source manga reader for Android platform. Supports a lot of online catalogues on different languages with filters and search, offline reading from local storage, favourites, bookmarks, new chapters notifications and more features.
 
+List of official servers:
+|Domain|IP:Port|Location|
+|---|---|---|
+|sync.kotatsu.app|86.57.183.214:8081|Belarus|
+
 ## What is synchronization?
 Synchronization is needed to store your collection of favorites, history and categories and have remote access to them. On a synchronized device, you can restore your manga collection in real time without loss. It also supports working across multiple devices. It is convenient for those who use several devices.
 
@@ -26,6 +31,27 @@ After the authorization/registration process, you will return back to the **Cont
 
 ## Can I use a synchronization server on my hosting?
 Yes, you can use your synchronization server in the application by specifying its address (`Options -> Settings -> Services -> Synchronization settings -> Server address`). Instructions for deploying the server will be available soon.
+
+## Installation
+### Docker
+Build image container:
+
+    docker build github.com/KotatsuApp/kotatsu-syncserver.git -t kotatsuapp/syncserver
+	
+Run container:
+
+    docker run -d -p 8081:8080 \
+	-e DATABASE_HOST=your_db_host \
+	-e DATABASE_USER=your_user \
+	-e DATABASE_PASSWORD=your_password \
+	-e DATABASE_NAME=your_database_name \
+	-e JWT_SECRET=your_secret \
+	--restart always \
+	--name kotatsu-sync kotatsuapp/syncserver
+	  
+### Systemctl
+
+TODO
  
 ## License
 
