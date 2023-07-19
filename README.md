@@ -3,9 +3,10 @@
 [Kotatsu](https://github.com/KotatsuApp/Kotatsu) is a free and open source manga reader for Android platform. Supports a lot of online catalogues on different languages with filters and search, offline reading from local storage, favourites, bookmarks, new chapters notifications and more features.
 
 List of official servers:
-|Domain|IP:Port|Location|
-|---|---|---|
-|sync.kotatsu.app|86.57.183.214:8081|Belarus|
+|Domain|IP:Port|Location|Status|
+|---|---|---|---|
+|sync.kotatsu.app|86.57.183.214:8081|Belarus|![Uptime](https://health.kotatsu.app/api/badge/1/status)|
+|-|86.57.183.214:1337|Belarus (Mirror)|![Uptime](https://health.kotatsu.app/api/badge/6/status)|
 
 ## What is synchronization?
 Synchronization is needed to store your collection of favorites, history and categories and have remote access to them. On a synchronized device, you can restore your manga collection in real time without loss. It also supports working across multiple devices. It is convenient for those who use several devices.
@@ -45,6 +46,7 @@ Run container:
 	-e DATABASE_USER=your_db_user \
 	-e DATABASE_PASSWORD=your_db_password \
 	-e DATABASE_NAME=your_db_name \
+ 	-e DATABASE_PORT=your_db_port \
 	-e JWT_SECRET=your_secret \
 	--restart always \
 	--name kotatsu-sync kotatsuapp/syncserver
@@ -63,6 +65,7 @@ Then edit file `kotatsu-sync.service`, change `replaceme` fields with your value
 
 	$ cp kotatsu-sync.service /etc/systemd/system
 	$ systemctl enable kotatsu-sync
+  	$ systemctl daemon-reload
 	$ systemctl start kotatsu-sync
 	
 That's all :)
