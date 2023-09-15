@@ -5,15 +5,23 @@ import com.auth0.jwt.algorithms.Algorithm
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.auth.*
+import io.ktor.server.plugins.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import org.kotatsu.database
 import org.kotatsu.model.favourite.FavouritesPackage
 import org.kotatsu.model.history.HistoryPackage
+import org.kotatsu.model.manga
+import org.kotatsu.model.manga.toManga
 import org.kotatsu.model.user.AuthRequest
 import org.kotatsu.model.user.toUserInfo
 import org.kotatsu.resources.*
 import org.ktorm.database.TransactionIsolation
+import org.ktorm.dsl.eq
+import org.ktorm.entity.drop
+import org.ktorm.entity.find
+import org.ktorm.entity.map
+import org.ktorm.entity.take
 import java.util.*
 import java.util.concurrent.TimeUnit
 
@@ -102,6 +110,21 @@ fun Application.configureRouting() {
 		}
 		get("/") {
 			call.respond(HttpStatusCode.OK, "Alive")
+		}
+		get("/manga/{id}") {
+			val id = call.parameters["id"]?.toLongOrNull() ?: throw NotFoundException()
+			val manga = database.manga.find { x -> x.id eq id }?.toManga() ?: throw NotFoundException()
+			call.respond(manga)
+		}
+		get("/manga") {
+			val offset = requireNotNull(call.request.queryParameters["offset"]?.toIntOrNull()) {
+				"Parameter \"offset\" is missing or invalid"
+			}
+			val limit = requireNotNull(call.request.queryParameters["limit"]?.toIntOrNull()) {
+				"Parameter \"limit\" is missing or invalid"
+			}
+			val manga = database.manga.drop(offset).take(limit).map { it.toManga() }
+			call.respond(manga)
 		}
 	}
 }
