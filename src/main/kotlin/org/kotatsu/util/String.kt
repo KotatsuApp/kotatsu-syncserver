@@ -5,4 +5,4 @@ import java.security.MessageDigest
 
 fun String.md5(): String = MessageDigest.getInstance("MD5").digest(this.toByteArray(UTF_8)).decodeToString()
 
-fun String.truncate(maxLength: Int): String = if (length > maxLength) take(maxLength) else this
+fun String.truncated(maxLength: Int): String = if (length > maxLength) take(maxLength) else this
