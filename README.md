@@ -19,13 +19,13 @@ Synchronization is needed to store your collection of favorites, history and cat
 ## What data can be synchronized?
  - Favorites (with categories);
  - History.
- 
+
 ## How do I sync my data?
-Go to `Options -> Settings -> Services`, then select **Synchronization**. Enter your email address (even if you have not registered in the synchronization system, the authorization screen also acts as a registration screen), then come up with and enter a password. 
+Go to `Options -> Settings -> Services`, then select **Synchronization**. Enter your email address (even if you have not registered in the synchronization system, the authorization screen also acts as a registration screen), then come up with and enter a password.
 
     ATTENTION: there is no password recovery from the account at the moment,
-	if you forget the password, you will not be able to log into your account on other 
-	devices, so we recommend that you do not forget the password or write it down somewhere. 
+	if you forget the password, you will not be able to log into your account on other
+	devices, so we recommend that you do not forget the password or write it down somewhere.
 
 After the authorization/registration process, you will return back to the **Content** screen. To set up synchronization, select **Synchronization** again, and then you will go to system sync settings. Choose what you want to sync, history, favorites or all together, after which automatic synchronization to our server will begin.
 
@@ -37,7 +37,7 @@ Yes, you can use your synchronization server in the application by specifying it
 Build image container:
 
     docker build github.com/KotatsuApp/kotatsu-syncserver.git -t kotatsuapp/syncserver
-	
+
 Run container:
 
     docker run -d -p 8081:8080 \
@@ -47,11 +47,14 @@ Run container:
 	-e DATABASE_NAME=your_db_name \
  	-e DATABASE_PORT=your_db_port \
 	-e JWT_SECRET=your_secret \
+	-e ALLOW_NEW_REGISTER=true \
 	--restart always \
 	--name kotatsu-sync kotatsuapp/syncserver
-	  
+
+In case you don't want others to use your instance, register your accounts then set `ALLOW_NEW_REGISTER` to `false`.
+
 ### Systemd
-Requirements: 
+Requirements:
 - JDK 11+
 - Gradle 7.0+
 
@@ -66,10 +69,10 @@ Then edit file `kotatsu-sync.service`, change `replaceme` fields with your value
 	$ systemctl enable kotatsu-sync
   	$ systemctl daemon-reload
 	$ systemctl start kotatsu-sync
-	
+
 That's all :)
 For any questions, please, contact us in [Telegram group](https://t.me/kotatsuapp) or write an issue, thanks.
- 
+
 ## License
 
 [![GNU GPLv3 Image](https://www.gnu.org/graphics/gplv3-127x51.png)](http://www.gnu.org/licenses/gpl-3.0.en.html)

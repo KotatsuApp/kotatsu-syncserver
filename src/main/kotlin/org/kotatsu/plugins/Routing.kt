@@ -94,7 +94,8 @@ fun Application.configureRouting() {
 			val secret = config.property("jwt.secret").getString()
 			val issuer = config.property("jwt.issuer").getString()
 			val audience = config.property("jwt.audience").getString()
-			val user = getOrCreateUser(request)
+			val allowNewRegister = config.property("kotatsu.allow_new_register").getString() == "true"
+			val user = getOrCreateUser(request, allowNewRegister)
 			if (user == null) {
 				call.respondText(text = "Wrong password", status = HttpStatusCode.BadRequest)
 				return@post
