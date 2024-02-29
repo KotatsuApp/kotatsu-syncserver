@@ -33,6 +33,12 @@ After the authorization/registration process, you will return back to the **Cont
 Yes, you can use your synchronization server in the application by specifying its address (`Options -> Settings -> Services -> Synchronization settings -> Server address`). Instructions for deploying the server are below.
 
 ## Installation
+### MySQL schema
+
+Before deploying the sync server, you have to run the SQL script to setup the schema for your MySQL database:
+
+	mysql -h hostname -u user database < ./database.sql
+
 ### Docker
 Build image container:
 
@@ -41,11 +47,11 @@ Build image container:
 Run container:
 
     docker run -d -p 8081:8080 \
-	-e DATABASE_HOST=your_db_host \
-	-e DATABASE_USER=your_db_user \
-	-e DATABASE_PASSWORD=your_db_password \
-	-e DATABASE_NAME=your_db_name \
- 	-e DATABASE_PORT=your_db_port \
+	-e DATABASE_HOST=your_mysql_db_host \
+	-e DATABASE_USER=your_mysql_db_user \
+	-e DATABASE_PASSWORD=your_mysql_db_password \
+	-e DATABASE_NAME=your_mysql_db_name \
+ 	-e DATABASE_PORT=your_mysql_db_port \
 	-e JWT_SECRET=your_secret \
 	-e ALLOW_NEW_REGISTER=true \
 	--restart always \
@@ -63,7 +69,7 @@ Commands:
     $ git clone https://github.com/KotatsuApp/kotatsu-syncserver.git
     $ cd kotatsu-syncserver && ./gradlew shadowJar
 
-Then edit file `kotatsu-sync.service`, change `replaceme` fields with your values and specify the `kotatsu-syncserver-0.0.1.jar` file location (it can be found in `build/libs` directory after buliding)
+Then edit file `kotatsu-sync.service`, change `replaceme` fields with your values (MySQL is used for database) and specify the `kotatsu-syncserver-0.0.1.jar` file location (it can be found in `build/libs` directory after buliding)
 
 	$ cp kotatsu-sync.service /etc/systemd/system
 	$ systemctl enable kotatsu-sync
