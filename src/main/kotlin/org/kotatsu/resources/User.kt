@@ -10,7 +10,7 @@ import org.ktorm.dsl.insertAndGenerateKey
 import org.ktorm.entity.find
 import org.ktorm.entity.singleOrNull
 
-suspend fun getOrCreateUser(request: AuthRequest): UserInfo? = withRetry {
+suspend fun getOrCreateUser(request: AuthRequest, allowNewRegister: Boolean): UserInfo? = withRetry {
 	require(request.password.length in 2..24) {
 		"Password should be from 2 to 24 characters long"
 	}
@@ -20,7 +20,8 @@ suspend fun getOrCreateUser(request: AuthRequest): UserInfo? = withRetry {
 	val passDigest = request.password.md5()
 	val user = database.users.find { (it.email eq request.email) }
 	when {
-		user == null -> registerUser(request, passDigest)
+		user == null && allowNewRegister -> registerUser(request, passDigest)
+		user == null -> null
 		user.password == passDigest -> user.toUserInfo()
 		else -> null
 	}

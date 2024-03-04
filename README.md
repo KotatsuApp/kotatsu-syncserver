@@ -53,8 +53,11 @@ Run container:
 	-e DATABASE_NAME=your_mysql_db_name \
  	-e DATABASE_PORT=your_mysql_db_port \
 	-e JWT_SECRET=your_secret \
+	-e ALLOW_NEW_REGISTER=true \
 	--restart always \
 	--name kotatsu-sync kotatsuapp/syncserver
+
+In case you don't want others to use your instance, register your accounts then set `ALLOW_NEW_REGISTER` to `false`.
 
 ### Systemd
 Requirements:
