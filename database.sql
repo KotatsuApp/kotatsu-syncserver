@@ -113,6 +113,7 @@ create table history
     page       smallint   not null,
     scroll     double     not null,
     percent    double     not null,
+    chapters   int		  not null,
 	deleted_at bigint	  not null,
     user_id    int        not null,
     primary key (user_id, manga_id),

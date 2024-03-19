@@ -14,6 +14,7 @@ interface HistoryEntity : Entity<HistoryEntity> {
 	var page: Int
 	var scroll: Float
 	var percent: Float
+	var chapters: Int
 	var deletedAt: Long
 
 	var user: UserEntity

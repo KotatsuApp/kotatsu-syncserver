@@ -13,6 +13,7 @@ fun HistoryEntity.toHistory() = History(
 	page = page,
 	scroll = scroll,
 	percent = percent,
+	chapters = chapters,
 	deletedAt = deletedAt,
 )
 
@@ -27,6 +28,7 @@ fun History.toEntity(
 	page = this@toEntity.page
 	scroll = this@toEntity.scroll
 	percent = this@toEntity.percent
+	chapters = this@toEntity.chapters
 	deletedAt = this@toEntity.deletedAt
 	user = userEntity
 }

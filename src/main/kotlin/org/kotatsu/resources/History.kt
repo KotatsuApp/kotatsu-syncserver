@@ -48,6 +48,7 @@ private suspend fun Database.upsertHistory(history: History, userId: Int) {
 			set(it.page, history.page)
 			set(it.scroll, history.scroll)
 			set(it.percent, history.percent)
+			set(it.chapters, history.chapters)
 			set(it.deletedAt, history.deletedAt)
 			set(it.userId, userId)
 			onDuplicateKey {
@@ -57,6 +58,7 @@ private suspend fun Database.upsertHistory(history: History, userId: Int) {
 				set(it.page, history.page)
 				set(it.scroll, history.scroll)
 				set(it.percent, history.percent)
+				set(it.chapters, history.chapters)
 				set(it.deletedAt, history.deletedAt)
 			}
 		}
