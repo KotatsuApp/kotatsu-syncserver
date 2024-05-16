@@ -6,6 +6,7 @@ List of official servers:
 |Domain|Location|Status|
 |---|---|---|
 |sync.kotatsu.app|Belarus|![[Uptime](https://health.kotatsu.app/api/badge/1/status)](https://status.kotatsu.app/api/badge/1/status)|
+|moe.shirizu.org|Netherlands|![[Uptime](https://health.kotatsu.app/api/badge/7/status)](https://status.kotatsu.app/api/badge/7/status)|
 
 ## What is synchronization?
 Synchronization is needed to store your collection of favorites, history and categories and have remote access to them. On a synchronized device, you can restore your manga collection in real time without loss. It also supports working across multiple devices. It is convenient for those who use several devices.
