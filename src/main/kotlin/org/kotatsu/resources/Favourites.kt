@@ -5,7 +5,7 @@ import org.kotatsu.model.categories
 import org.kotatsu.model.favourite.*
 import org.kotatsu.model.favourites
 import org.kotatsu.model.user.UserEntity
-import org.kotatsu.util.insertOrUpdate
+import org.kotatsu.util.smartInsert
 import org.kotatsu.util.toBoolean
 import org.kotatsu.util.truncated
 import org.kotatsu.util.withRetry
@@ -46,25 +46,28 @@ private suspend fun Database.upsertCategory(category: Category, userId: Int) {
 		return
 	}
 	withRetry {
-		insertOrUpdate(CategoriesTable, block = {
-			set(it.id, category.id)
-			set(it.createdAt, category.createdAt)
-			set(it.sortKey, category.sortKey)
-			set(it.title, category.title.truncated(120))
-			set(it.order, category.order)
-			set(it.track, category.track.toBoolean())
-			set(it.showInLib, category.showInLib.toBoolean())
-			set(it.deletedAt, category.deletedAt)
-			set(it.userId, userId)
-		}, conflictBlock = {
-			set(it.createdAt, category.createdAt)
-			set(it.sortKey, category.sortKey)
-			set(it.title, category.title.truncated(120))
-			set(it.order, category.order)
-			set(it.track, category.track.toBoolean())
-			set(it.showInLib, category.showInLib.toBoolean())
-			set(it.deletedAt, category.deletedAt)
-		})
+		smartInsert(CategoriesTable) {
+			onInsert {
+				set(it.id, category.id)
+				set(it.createdAt, category.createdAt)
+				set(it.sortKey, category.sortKey)
+				set(it.title, category.title.truncated(120))
+				set(it.order, category.order)
+				set(it.track, category.track.toBoolean())
+				set(it.showInLib, category.showInLib.toBoolean())
+				set(it.deletedAt, category.deletedAt)
+				set(it.userId, userId)
+			}
+			onDuplicateKey {
+				set(it.createdAt, category.createdAt)
+				set(it.sortKey, category.sortKey)
+				set(it.title, category.title.truncated(120))
+				set(it.order, category.order)
+				set(it.track, category.track.toBoolean())
+				set(it.showInLib, category.showInLib.toBoolean())
+				set(it.deletedAt, category.deletedAt)
+			}
+		}
 	}
 }
 
@@ -76,17 +79,20 @@ private suspend fun Database.upsertFavourite(favourite: Favourite, userId: Int) 
 		return
 	}
 	withRetry {
-		insertOrUpdate(FavouritesTable, block = {
-			set(it.manga, favourite.mangaId)
-			set(it.category, favourite.categoryId)
-			set(it.sortKey, favourite.sortKey)
-			set(it.createdAt, favourite.createdAt)
-			set(it.deletedAt, favourite.deletedAt)
-			set(it.userId, userId)
-		}, conflictBlock = {
-			set(it.sortKey, favourite.sortKey)
-			set(it.createdAt, favourite.createdAt)
-			set(it.deletedAt, favourite.deletedAt)
-		})
+		smartInsert(FavouritesTable) {
+			onInsert {
+				set(it.manga, favourite.mangaId)
+				set(it.category, favourite.categoryId)
+				set(it.sortKey, favourite.sortKey)
+				set(it.createdAt, favourite.createdAt)
+				set(it.deletedAt, favourite.deletedAt)
+				set(it.userId, userId)
+			}
+			onDuplicateKey {
+				set(it.sortKey, favourite.sortKey)
+				set(it.createdAt, favourite.createdAt)
+				set(it.deletedAt, favourite.deletedAt)
+			}
+		}
 	}
 }
