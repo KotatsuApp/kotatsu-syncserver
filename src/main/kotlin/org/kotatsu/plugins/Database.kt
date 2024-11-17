@@ -2,16 +2,13 @@ package org.kotatsu.plugins
 
 import io.ktor.server.application.*
 import org.kotatsu.database
+import org.kotatsu.databaseType
+import org.kotatsu.util.DatabaseType
 import org.ktorm.database.Database
 import org.ktorm.support.mysql.MySqlDialect
 import org.ktorm.support.postgresql.PostgreSqlDialect
 import java.util.*
 
-enum class DatabaseType {
-	MYSQL, POSTGRESQL
-}
-
-lateinit var databaseType: DatabaseType
 
 fun Application.configureDatabase() {
 	val config = this.environment.config

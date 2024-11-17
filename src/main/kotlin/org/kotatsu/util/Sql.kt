@@ -1,7 +1,6 @@
 package org.kotatsu.util
 
-import org.kotatsu.plugins.DatabaseType
-import org.kotatsu.plugins.databaseType
+import org.kotatsu.databaseType
 import org.ktorm.dsl.AssignmentsBuilder
 import org.ktorm.support.mysql.insertOrUpdate as mysqlInsertOrUpdate
 import org.ktorm.support.postgresql.insertOrUpdate as postgresqlInsertOrUpdate
