@@ -5,6 +5,7 @@ import org.kotatsu.model.categories
 import org.kotatsu.model.favourite.*
 import org.kotatsu.model.favourites
 import org.kotatsu.model.user.UserEntity
+import org.kotatsu.util.insertOrUpdate
 import org.kotatsu.util.toBoolean
 import org.kotatsu.util.truncated
 import org.kotatsu.util.withRetry
@@ -14,7 +15,6 @@ import org.ktorm.dsl.eq
 import org.ktorm.entity.filter
 import org.ktorm.entity.find
 import org.ktorm.entity.map
-import org.ktorm.support.mysql.insertOrUpdate
 
 suspend fun syncFavourites(
 	user: UserEntity,
@@ -46,7 +46,7 @@ private suspend fun Database.upsertCategory(category: Category, userId: Int) {
 		return
 	}
 	withRetry {
-		insertOrUpdate(CategoriesTable) {
+		insertOrUpdate(CategoriesTable, block = {
 			set(it.id, category.id)
 			set(it.createdAt, category.createdAt)
 			set(it.sortKey, category.sortKey)
@@ -56,16 +56,15 @@ private suspend fun Database.upsertCategory(category: Category, userId: Int) {
 			set(it.showInLib, category.showInLib.toBoolean())
 			set(it.deletedAt, category.deletedAt)
 			set(it.userId, userId)
-			onDuplicateKey {
-				set(it.createdAt, category.createdAt)
-				set(it.sortKey, category.sortKey)
-				set(it.title, category.title.truncated(120))
-				set(it.order, category.order)
-				set(it.track, category.track.toBoolean())
-				set(it.showInLib, category.showInLib.toBoolean())
-				set(it.deletedAt, category.deletedAt)
-			}
-		}
+		}, conflictBlock = {
+			set(it.createdAt, category.createdAt)
+			set(it.sortKey, category.sortKey)
+			set(it.title, category.title.truncated(120))
+			set(it.order, category.order)
+			set(it.track, category.track.toBoolean())
+			set(it.showInLib, category.showInLib.toBoolean())
+			set(it.deletedAt, category.deletedAt)
+		})
 	}
 }
 
@@ -77,18 +76,17 @@ private suspend fun Database.upsertFavourite(favourite: Favourite, userId: Int) 
 		return
 	}
 	withRetry {
-		insertOrUpdate(FavouritesTable) {
+		insertOrUpdate(FavouritesTable, block = {
 			set(it.manga, favourite.mangaId)
 			set(it.category, favourite.categoryId)
 			set(it.sortKey, favourite.sortKey)
 			set(it.createdAt, favourite.createdAt)
 			set(it.deletedAt, favourite.deletedAt)
 			set(it.userId, userId)
-			onDuplicateKey {
-				set(it.sortKey, favourite.sortKey)
-				set(it.createdAt, favourite.createdAt)
-				set(it.deletedAt, favourite.deletedAt)
-			}
-		}
+		}, conflictBlock = {
+			set(it.sortKey, favourite.sortKey)
+			set(it.createdAt, favourite.createdAt)
+			set(it.deletedAt, favourite.deletedAt)
+		})
 	}
 }
