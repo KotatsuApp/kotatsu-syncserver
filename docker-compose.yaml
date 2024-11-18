@@ -10,6 +10,17 @@ services:
       - /var/lib/mysql:/var/lib/mysql
     ports:
       - "3306:3306"
+#  db:
+#    image: postgres:17-alpine
+#    environment:
+#      POSTGRES_USER: your_user
+#      POSTGRES_PASSWORD: your_password
+#      POSTGRES_DB: kotatsu_db
+#      MYSQL_ALLOW_EMPTY_PASSWORD: true
+#    volumes:
+#      - /var/lib/postgresql/data:/var/lib/postgresql/data
+#    ports:
+#      - "5432:5432"
   server:
     container_name: kotatsu-sync
     build: ./
@@ -25,6 +36,8 @@ services:
       DATABASE_PASSWORD: your_password
       DATABASE_NAME: kotatsu_db
       DATABASE_PORT: 3306
+#      DATABASE_PORT: 5432
+#      DATABASE_TYPE: postgresql
       JWT_SECRET: your_secret
       ALLOW_NEW_REGISTER: true
     restart: always

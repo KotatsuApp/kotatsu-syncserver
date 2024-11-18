@@ -34,11 +34,15 @@ After the authorization/registration process, you will return back to the **Cont
 Yes, you can use your synchronization server in the application by specifying its address (`Options -> Settings -> Services -> Synchronization settings -> Server address`). Instructions for deploying the server are below.
 
 ## Installation
-### MySQL schema
+### Database schema
 
 Before deploying the sync server, you have to run the SQL script to setup the schema for your MySQL database:
 
-	mysql -h hostname -u user database < ./database.sql
+	mysql -h hostname -u user database < ./database.mysql.sql
+
+or Postgresql one:
+
+	psql -U user database < ./database.postgresql.sql
 
 ### Docker
 Build image container:
@@ -59,6 +63,11 @@ Run container:
 	--name kotatsu-sync kotatsuapp/syncserver
 
 In case you don't want others to use your instance, register your accounts then set `ALLOW_NEW_REGISTER` to `false`.
+
+To use Postgresql, following additional env are needed:
+
+    -e DATABASE_PORT=5432 \
+    -e DATABASE_TYPE=postgresql
 
 ### Systemd
 Requirements:

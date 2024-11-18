@@ -35,6 +35,8 @@ dependencies {
     implementation "org.ktorm:ktorm-core:$ktorm_version"
     implementation "org.ktorm:ktorm-support-mysql:$ktorm_version"
 	implementation 'com.mysql:mysql-connector-j:8.0.32'
+    implementation "org.ktorm:ktorm-support-postgresql:$ktorm_version"
+	implementation 'org.postgresql:postgresql:42.7.3'
 
     implementation "ch.qos.logback:logback-classic:$logback_version"
     testImplementation "io.ktor:ktor-server-tests:$ktor_version"
