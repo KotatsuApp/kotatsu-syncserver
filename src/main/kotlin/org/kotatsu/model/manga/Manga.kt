@@ -11,7 +11,8 @@ data class Manga(
 	@SerialName("url") val url: String, // relative url for internal use
 	@SerialName("public_url") val publicUrl: String,
 	@SerialName("rating") val rating: Float, // normalized value [0..1] or -1
-	@SerialName("nsfw") val isNsfw: Int,
+	@SerialName("nsfw") val isNsfw: Int? = null,
+	@SerialName("content_rating") val contentRating: String? = null,
 	@SerialName("cover_url") val coverUrl: String,
 	@SerialName("large_cover_url") val largeCoverUrl: String? = null,
 	@SerialName("tags") val tags: Set<MangaTag>,

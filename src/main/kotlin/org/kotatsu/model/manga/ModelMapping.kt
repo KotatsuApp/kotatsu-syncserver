@@ -19,3 +19,11 @@ fun MangaEntity.toManga() = Manga(
 )
 
 fun TagEntity.toTag() = MangaTag(id, title, key, source)
+
+fun Manga.getNsfwValue(): Boolean {
+	return when {
+		isNsfw != null -> isNsfw == 1
+		contentRating != null -> contentRating == "ADULT"
+		else -> false
+	}
+}
