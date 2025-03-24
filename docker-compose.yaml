@@ -1,6 +1,6 @@
 services:
   db:
-    image: mysql:8.0-debian
+    image: mysql:8.4
     environment:
       MYSQL_USER: your_user
       MYSQL_PASSWORD: your_password
