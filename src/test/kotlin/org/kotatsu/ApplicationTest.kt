@@ -5,8 +5,7 @@ import io.ktor.client.statement.*
 import io.ktor.http.*
 import io.ktor.server.testing.*
 import org.kotatsu.plugins.configureRouting
-import kotlin.test.Test
-import kotlin.test.assertEquals
+import kotlin.test.*
 
 class ApplicationTest {
 	@Test
@@ -16,7 +15,7 @@ class ApplicationTest {
 		}
 		client.get("/").apply {
 			assertEquals(HttpStatusCode.OK, status)
-			assertEquals("Hello World!", bodyAsText())
+			assertEquals("Alive", bodyAsText())
 		}
 	}
 }
