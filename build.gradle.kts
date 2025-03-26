@@ -32,6 +32,7 @@ dependencies {
 	implementation(libs.ktor.server.auto.head.response)
     implementation(libs.ktorm.core)
     implementation(libs.ktorm.support.mysql)
+	implementation(libs.hikaricp)
 	implementation(libs.mysql.connector.j)
     implementation(libs.logback.classic)
 	testImplementation(libs.ktor.server.test.host)
