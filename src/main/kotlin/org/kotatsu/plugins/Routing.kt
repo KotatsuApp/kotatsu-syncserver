@@ -6,6 +6,7 @@ import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.auth.*
 import io.ktor.server.plugins.*
+import io.ktor.server.plugins.autohead.AutoHeadResponse
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import org.kotatsu.database
@@ -26,6 +27,7 @@ import java.util.*
 import java.util.concurrent.TimeUnit
 
 fun Application.configureRouting() {
+	install(AutoHeadResponse)
 	routing {
 		authenticate("auth-jwt") {
 			post<FavouritesPackage>("/resource/favourites") { request ->
