@@ -1,14 +1,14 @@
 package org.kotatsu.model.manga
 
-enum class MangaState {
-	ONGOING, FINISHED, ABANDONED, PAUSED, UPCOMING;
+enum class ContentRating {
+	SAFE, SUGGESTIVE, ADULT;
 
 	companion object {
 
 		fun from(name: String?) = if (name.isNullOrEmpty()) {
 			null
 		} else {
-			MangaState.entries.find { x ->
+			entries.find { x ->
 				x.name == name
 			}
 		}

@@ -10,6 +10,7 @@ data class Favourite(
 	@SerialName("manga") val manga: Manga,
 	@SerialName("category_id") val categoryId: Int,
 	@SerialName("sort_key") val sortKey: Int,
+	@SerialName("pinned") val pinned: Boolean,
 	@SerialName("created_at") val createdAt: Long,
 	@SerialName("deleted_at") var deletedAt: Long,
 )

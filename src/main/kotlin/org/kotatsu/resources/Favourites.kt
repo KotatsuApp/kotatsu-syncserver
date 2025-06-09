@@ -81,11 +81,13 @@ private suspend fun Database.upsertFavourite(favourite: Favourite, userId: Int) 
 			set(it.manga, favourite.mangaId)
 			set(it.category, favourite.categoryId)
 			set(it.sortKey, favourite.sortKey)
+			set(it.pinned, favourite.pinned)
 			set(it.createdAt, favourite.createdAt)
 			set(it.deletedAt, favourite.deletedAt)
 			set(it.userId, userId)
 			onDuplicateKey {
 				set(it.sortKey, favourite.sortKey)
+				set(it.pinned, favourite.pinned)
 				set(it.createdAt, favourite.createdAt)
 				set(it.deletedAt, favourite.deletedAt)
 			}

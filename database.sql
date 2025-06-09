@@ -20,11 +20,11 @@ create table manga
     url             varchar(255) not null,
     public_url      varchar(255) not null,
     rating          float        not null,
-    is_nsfw         tinyint(1)   not null,
+    content_rating  char(12)     null,
     cover_url       varchar(255) not null,
     large_cover_url varchar(255) null,
-    state           char(24)     null,
-    author          varchar(32)  null,
+    state           char(12)     null,
+    author          varchar(64)  null,
     source          varchar(32)  not null,
     primary key (id)
 );
@@ -89,6 +89,7 @@ create table favourites
     manga_id    bigint     not null,
     category_id bigint     not null,
     sort_key    int        not null,
+    pinned 		tinyint(1) not null,
     created_at  bigint     not null,
 	deleted_at  bigint	   not null,
     user_id     int        not null,

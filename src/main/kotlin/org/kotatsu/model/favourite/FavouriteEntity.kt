@@ -9,6 +9,7 @@ interface FavouriteEntity : Entity<FavouriteEntity> {
 	var manga: MangaEntity
 	var categoryId: Int
 	var sortKey: Int
+	var pinned: Boolean
 	var createdAt: Long
 	var deletedAt: Long
 

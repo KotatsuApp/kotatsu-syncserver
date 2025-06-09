@@ -15,7 +15,7 @@ interface MangaEntity : Entity<MangaEntity> {
 	var url: String
 	var publicUrl: String
 	var rating: Float
-	var isNsfw: Boolean
+	var contentRating: ContentRating?
 	var coverUrl: String
 	var largeCoverUrl: String
 	var state: MangaState?

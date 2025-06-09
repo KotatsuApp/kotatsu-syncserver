@@ -35,6 +35,7 @@ fun FavouriteEntity.toFavourite() = Favourite(
 	manga = manga.toManga(),
 	categoryId = categoryId,
 	sortKey = sortKey,
+	pinned = pinned,
 	createdAt = createdAt,
 	deletedAt = deletedAt,
 )

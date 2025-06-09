@@ -1,7 +1,5 @@
 package org.kotatsu.model.manga
 
-import org.kotatsu.util.toInt
-
 fun MangaEntity.toManga() = Manga(
 	id = id,
 	title = title,
@@ -9,21 +7,19 @@ fun MangaEntity.toManga() = Manga(
 	url = url,
 	publicUrl = publicUrl,
 	rating = rating,
-	isNsfw = isNsfw.toInt(),
+	contentRating = contentRating?.name,
 	coverUrl = coverUrl,
 	largeCoverUrl = largeCoverUrl,
 	tags = tags.mapTo(HashSet(tags.size)) { it.toTag() },
-	state = state,
+	state = state?.name,
 	author = author,
 	source = source,
 )
 
 fun TagEntity.toTag() = MangaTag(id, title, key, source)
 
-fun Manga.getNsfwValue(): Boolean {
-	return when {
-		isNsfw != null -> isNsfw == 1
-		contentRating != null -> contentRating == "ADULT"
-		else -> false
-	}
+fun Manga.getNsfwValue(): Boolean = if (contentRating != null) {
+	contentRating == ContentRating.ADULT.name
+} else {
+	false
 }

@@ -3,7 +3,6 @@ package org.kotatsu.resources
 import org.kotatsu.model.manga
 import org.kotatsu.model.manga.*
 import org.kotatsu.model.tags
-import org.kotatsu.util.toBoolean
 import org.kotatsu.util.truncated
 import org.kotatsu.util.withRetry
 import org.ktorm.database.Database
@@ -26,10 +25,11 @@ suspend fun Database.upsertManga(manga: Manga) {
 			set(it.url, manga.url.truncated(255))
 			set(it.publicUrl, manga.publicUrl.truncated(255))
 			set(it.rating, manga.rating)
-			set(it.isNsfw, manga.getNsfwValue())
+			set(it.contentRating, ContentRating.from(manga.contentRating))
 			set(it.coverUrl, manga.coverUrl.truncated(255))
-			set(it.state, manga.state)
-			set(it.author, manga.author?.truncated(32))
+			set(it.largeCoverUrl, manga.largeCoverUrl?.truncated(255))
+			set(it.state, MangaState.from(manga.state))
+			set(it.author, manga.author?.truncated(64))
 			set(it.mangaSource, manga.source.truncated(32))
 			onDuplicateKey {
 				set(it.title, manga.title.truncated(84))
@@ -37,10 +37,11 @@ suspend fun Database.upsertManga(manga: Manga) {
 				set(it.url, manga.url.truncated(255))
 				set(it.publicUrl, manga.publicUrl.truncated(255))
 				set(it.rating, manga.rating)
-				set(it.isNsfw, manga.getNsfwValue())
+				set(it.contentRating, ContentRating.from(manga.contentRating))
 				set(it.coverUrl, manga.coverUrl.truncated(255))
-				set(it.state, manga.state)
-				set(it.author, manga.author?.truncated(32))
+				set(it.largeCoverUrl, manga.largeCoverUrl?.truncated(255))
+				set(it.state, MangaState.from(manga.state))
+				set(it.author, manga.author?.truncated(64))
 				set(it.mangaSource, manga.source.truncated(32))
 			}
 		}

@@ -9,7 +9,7 @@ object MangaTable : Table<MangaEntity>("manga") {
 	val url = varchar("url").bindTo { it.url }
 	val publicUrl = varchar("public_url").bindTo { it.publicUrl }
 	val rating = float("rating").bindTo { it.rating }
-	val isNsfw = boolean("is_nsfw").bindTo { it.isNsfw }
+	val contentRating = enum<ContentRating>("content_rating").bindTo { it.contentRating }
 	val coverUrl = varchar("cover_url").bindTo { it.coverUrl }
 	val largeCoverUrl = varchar("large_cover_url").bindTo { it.largeCoverUrl }
 	val state = enum<MangaState>("state").bindTo { it.state }
