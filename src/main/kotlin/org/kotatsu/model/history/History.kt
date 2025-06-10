@@ -2,9 +2,11 @@ package org.kotatsu.model.history
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.JsonIgnoreUnknownKeys
 import org.kotatsu.model.manga.Manga
 
 @Serializable
+@JsonIgnoreUnknownKeys
 data class History(
 	@SerialName("manga_id") val mangaId: Long,
 	@SerialName("manga") val manga: Manga,

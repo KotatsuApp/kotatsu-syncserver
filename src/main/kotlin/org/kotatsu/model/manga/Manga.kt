@@ -2,8 +2,10 @@ package org.kotatsu.model.manga
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.JsonIgnoreUnknownKeys
 
 @Serializable
+@JsonIgnoreUnknownKeys
 data class Manga(
 	@SerialName("manga_id") val id: Long,
 	@SerialName("title") val title: String,

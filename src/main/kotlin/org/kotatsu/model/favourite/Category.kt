@@ -2,8 +2,10 @@ package org.kotatsu.model.favourite
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.JsonIgnoreUnknownKeys
 
 @Serializable
+@JsonIgnoreUnknownKeys
 data class Category(
 	@SerialName("category_id") val id: Int,
 	@SerialName("created_at") var createdAt: Long,
