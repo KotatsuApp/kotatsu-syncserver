@@ -13,11 +13,14 @@ env:
 jobs:
   docker-build:
     runs-on: ubuntu-latest
-    needs: lint
     permissions:
       contents: read
       packages: write
     steps:
+      - id: lower-repo
+        name: Repository to lowercase
+        run: |
+          echo "repository=${IMAGE_NAME@L}" >> $GITHUB_OUTPUT
       - name: Checkout
         uses: actions/checkout@v4
 
@@ -41,11 +44,10 @@ jobs:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
 
       - name: Build and push latest
-        if: ${{ github.ref == 'refs/heads/master' }}
         uses: docker/build-push-action@v6
         with:
           context: .
           platforms: linux/amd64,linux/arm64
           push: true
           labels: ${{ steps.meta.outputs.labels }}
-          tags: ghcr.io/kotatsuapp/kotatsu-syncserver:latest
+          tags: ${{ env.REGISTRY }}/${{ steps.lower-repo.outputs.repository }}:latest
