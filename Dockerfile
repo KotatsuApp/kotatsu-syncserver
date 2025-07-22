@@ -10,7 +10,7 @@ FROM gradle:8-jdk21 AS build
 COPY --from=cache /home/gradle/cache_home /home/gradle/.gradle
 COPY --chown=gradle:gradle . /home/gradle/src
 WORKDIR /home/gradle/src
-RUN gradle shadowJar --no-daemon
+RUN gradle buildFatJar --no-daemon
 
 FROM eclipse-temurin:21-jre
 EXPOSE 8080
