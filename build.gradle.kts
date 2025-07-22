@@ -5,8 +5,8 @@ plugins {
 	alias(libs.plugins.shadow)
 }
 
-group "org.kotatsu"
-version "0.0.1"
+group = "org.kotatsu"
+version = "0.0.1"
 
 application {
 	mainClass = "io.ktor.server.netty.EngineMain"
