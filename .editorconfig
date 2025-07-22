@@ -15,6 +15,9 @@ disabled_rules=no-wildcard-imports,no-unused-imports
 ij_kotlin_allow_trailing_comma = true
 ij_kotlin_code_style_defaults = KOTLIN_OFFICIAL
 
-[*.yaml]
+[*.{yaml,md}]
 indent_size = 2
 indent_style = space
+
+[*.md]
+trim_trailing_whitespace = true
