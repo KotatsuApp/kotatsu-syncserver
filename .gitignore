@@ -35,5 +35,8 @@ out/
 ### VS Code ###
 .vscode/
 
+### Kotlin ###
+.kotlin
+
 ### Misc ###
 .DS_Store
