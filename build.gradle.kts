@@ -2,11 +2,10 @@ plugins {
 	alias(libs.plugins.kotlin.jvm)
 	alias(libs.plugins.ktor)
 	alias(libs.plugins.kotlin.plugin.serialization)
-	alias(libs.plugins.shadow)
 }
 
-group "org.kotatsu"
-version "0.0.1"
+group = "org.kotatsu"
+version = "0.0.1"
 
 application {
 	mainClass = "io.ktor.server.netty.EngineMain"

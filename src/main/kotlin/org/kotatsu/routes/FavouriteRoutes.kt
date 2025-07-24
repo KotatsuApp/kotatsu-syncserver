@@ -4,6 +4,8 @@ import io.ktor.http.HttpStatusCode
 import io.ktor.server.response.respond
 import io.ktor.server.routing.*
 import io.ktor.server.auth.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import org.kotatsu.database
 import org.kotatsu.model.favourite.FavouritesPackage
 import org.kotatsu.plugins.currentUser
@@ -23,19 +25,24 @@ fun Route.favouriteRoutes() {
 			call.respond(response)
 		}
 		post<FavouritesPackage>("/resource/favourites") { request ->
-			database.useTransaction(TransactionIsolation.READ_COMMITTED) {
-				val user = call.currentUser
-				if (user == null) {
-					call.respond(HttpStatusCode.Unauthorized)
-					return@post
+			val user = call.currentUser
+			if (user == null) {
+				call.respond(HttpStatusCode.Unauthorized)
+				return@post
+			}
+
+			val response = withContext(Dispatchers.IO) {
+				database.useTransaction(TransactionIsolation.READ_COMMITTED) {
+					val result = syncFavourites(user, request)
+					user.setFavouritesSynchronized(System.currentTimeMillis())
+					result
 				}
-				val response = syncFavourites(user, request)
-				user.setFavouritesSynchronized(System.currentTimeMillis())
-				if (response.contentEquals(request)) {
-					call.respond(HttpStatusCode.NoContent)
-				} else {
-					call.respond(response)
-				}
+			}
+
+			if (response.contentEquals(request)) {
+				call.respond(HttpStatusCode.NoContent)
+			} else {
+				call.respond(response)
 			}
 		}
 	}

@@ -52,8 +52,8 @@ private suspend fun Database.upsertCategory(category: Category, userId: Int) {
 			set(it.sortKey, category.sortKey)
 			set(it.title, category.title.truncated(120))
 			set(it.order, category.order)
-			set(it.track, category.track.toBoolean())
-			set(it.showInLib, category.showInLib.toBoolean())
+			set(it.track, category.track)
+			set(it.showInLib, category.showInLib)
 			set(it.deletedAt, category.deletedAt)
 			set(it.userId, userId)
 			onDuplicateKey {
@@ -61,8 +61,8 @@ private suspend fun Database.upsertCategory(category: Category, userId: Int) {
 				set(it.sortKey, category.sortKey)
 				set(it.title, category.title.truncated(120))
 				set(it.order, category.order)
-				set(it.track, category.track.toBoolean())
-				set(it.showInLib, category.showInLib.toBoolean())
+				set(it.track, category.track)
+				set(it.showInLib, category.showInLib)
 				set(it.deletedAt, category.deletedAt)
 			}
 		}

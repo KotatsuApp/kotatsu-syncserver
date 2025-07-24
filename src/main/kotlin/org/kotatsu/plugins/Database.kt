@@ -4,6 +4,7 @@ import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import io.ktor.server.application.*
 import org.kotatsu.database
+import org.kotatsu.hikariDataSource
 import org.ktorm.database.Database
 
 fun Application.configureDatabase() {
@@ -18,6 +19,6 @@ fun Application.configureDatabase() {
 		driverClassName = "com.mysql.cj.jdbc.Driver"
 	}
 
-	val ds = HikariDataSource(config)
-	database = Database.connect(ds)
+	hikariDataSource = HikariDataSource(config)
+	database = Database.connect(hikariDataSource)
 }

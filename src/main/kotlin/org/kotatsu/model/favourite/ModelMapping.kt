@@ -3,8 +3,6 @@ package org.kotatsu.model.favourite
 import org.kotatsu.model.manga.MangaEntity
 import org.kotatsu.model.manga.toManga
 import org.kotatsu.model.user.UserEntity
-import org.kotatsu.util.toBoolean
-import org.kotatsu.util.toInt
 import org.kotatsu.util.truncated
 
 fun CategoryEntity.toCategory() = Category(
@@ -13,8 +11,8 @@ fun CategoryEntity.toCategory() = Category(
 	sortKey = sortKey,
 	title = title,
 	order = order,
-	track = track.toInt(),
-	showInLib = showInLib.toInt(),
+	track = track,
+	showInLib = showInLib,
 	deletedAt = deletedAt,
 )
 
@@ -24,8 +22,8 @@ fun Category.toEntity(userEntity: UserEntity) = CategoryEntity {
 	sortKey = this@toEntity.sortKey
 	title = this@toEntity.title.truncated(120)
 	order = this@toEntity.order
-	track = this@toEntity.track.toBoolean()
-	showInLib = this@toEntity.showInLib.toBoolean()
+	track = this@toEntity.track
+	showInLib = this@toEntity.showInLib
 	deletedAt = this@toEntity.deletedAt
 	user = userEntity
 }
