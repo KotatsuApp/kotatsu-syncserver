@@ -1,0 +1,15 @@
+services:
+  server:
+    container_name: kotatsu-sync
+    build: .
+    restart: unless-stopped
+    ports:
+      - "8081:8080"
+    environment:
+      DATABASE_HOST: db
+      DATABASE_USER: your_user
+      DATABASE_PASSWORD: your_password
+      DATABASE_NAME: kotatsu_db
+      DATABASE_PORT: 3306
+      JWT_SECRET: your_secret
+      ALLOW_NEW_REGISTER: true

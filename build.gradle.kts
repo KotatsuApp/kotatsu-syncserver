@@ -33,6 +33,7 @@ dependencies {
     implementation(libs.ktorm.support.mysql)
 	implementation(libs.hikaricp)
 	implementation(libs.mysql.connector.j)
+	implementation(libs.mariadb.java.client)
     implementation(libs.logback.classic)
 	testImplementation(libs.ktor.server.test.host)
     testImplementation(libs.kotlin.test.junit)

@@ -19,6 +19,7 @@ ktor-server-status-pages = { module = "io.ktor:ktor-server-status-pages", versio
 ktorm-core = { module = "org.ktorm:ktorm-core", version.ref = "ktorm-version" }
 ktorm-support-mysql = { module = "org.ktorm:ktorm-support-mysql", version.ref = "ktorm-version" }
 mysql-connector-j = { module = "com.mysql:mysql-connector-j", version = "9.2.0" }
+mariadb-java-client = { module = "org.mariadb.jdbc:mariadb-java-client", version = "3.5.4" }
 hikaricp = { module = "com.zaxxer:HikariCP", version = "6.3.0" }
 
 logback-classic = { module = "ch.qos.logback:logback-classic", version.ref = "logback-version" }
