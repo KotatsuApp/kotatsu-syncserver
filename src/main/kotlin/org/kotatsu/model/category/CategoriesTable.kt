@@ -1,10 +1,9 @@
-package org.kotatsu.model.favourite
+package org.kotatsu.model.category
 
 import org.kotatsu.model.user.UsersTable
 import org.ktorm.schema.*
 
 object CategoriesTable : Table<CategoryEntity>("categories") {
-
 	val id = int("id").primaryKey().bindTo { it.id }
 	val createdAt = long("created_at").bindTo { it.createdAt }
 	val sortKey = int("sort_key").bindTo { it.sortKey }

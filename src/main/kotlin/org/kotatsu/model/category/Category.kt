@@ -1,4 +1,4 @@
-package org.kotatsu.model.favourite
+package org.kotatsu.model.category
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

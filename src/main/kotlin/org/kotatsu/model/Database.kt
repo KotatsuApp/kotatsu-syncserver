@@ -1,6 +1,6 @@
 package org.kotatsu.model
 
-import org.kotatsu.model.favourite.CategoriesTable
+import org.kotatsu.model.category.CategoriesTable
 import org.kotatsu.model.favourite.FavouritesTable
 import org.kotatsu.model.history.HistoryTable
 import org.kotatsu.model.manga.MangaTable

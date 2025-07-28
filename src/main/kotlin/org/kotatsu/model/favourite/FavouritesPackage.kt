@@ -3,6 +3,7 @@ package org.kotatsu.model.favourite
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.JsonIgnoreUnknownKeys
+import org.kotatsu.model.category.Category
 import kotlin.jvm.internal.Intrinsics
 
 @Serializable

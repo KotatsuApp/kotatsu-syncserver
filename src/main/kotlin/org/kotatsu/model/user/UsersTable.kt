@@ -6,7 +6,6 @@ import org.ktorm.schema.long
 import org.ktorm.schema.varchar
 
 object UsersTable : Table<UserEntity>("users") {
-
 	val id = int("id").primaryKey().bindTo { it.id }
 	val email = varchar("email").bindTo { it.email }
 	val password = varchar("password").bindTo { it.password }
