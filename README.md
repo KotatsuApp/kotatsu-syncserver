@@ -39,14 +39,6 @@ Yes, you can use your synchronization server in the application by specifying it
 
 ## Installation
 
-### MySQL schema
-
-Before deploying the sync server, you have to run the SQL script to set up the schema for your MySQL database:
-
-```shell
-mysql -h hostname -u user database < ./database.sql
-```
-
 ### Docker
 
 Build image container:
