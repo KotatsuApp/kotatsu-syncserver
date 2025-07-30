@@ -42,6 +42,7 @@ dependencies {
 	implementation(libs.flyway.core)
 	implementation(libs.flyway.mysql)
 	implementation(libs.hikaricp)
+	implementation(libs.argon2)
 	implementation(libs.mysql.connector.j)
 	implementation(libs.mariadb.java.client)
     implementation(libs.logback.classic)

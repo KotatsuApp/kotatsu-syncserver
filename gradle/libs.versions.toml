@@ -25,6 +25,8 @@ mysql-connector-j = { module = "com.mysql:mysql-connector-j", version = "9.2.0" 
 mariadb-java-client = { module = "org.mariadb.jdbc:mariadb-java-client", version = "3.5.4" }
 hikaricp = { module = "com.zaxxer:HikariCP", version = "6.3.0" }
 
+argon2 = { module = "de.mkammerer:argon2-jvm", version = "2.12" }
+
 logback-classic = { module = "ch.qos.logback:logback-classic", version.ref = "logback-version" }
 
 ktor-server-test-host = { module = "io.ktor:ktor-server-test-host", version.ref = "ktor-version" }
