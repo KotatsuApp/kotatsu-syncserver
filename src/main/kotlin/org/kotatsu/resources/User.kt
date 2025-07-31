@@ -14,7 +14,7 @@ suspend fun getOrCreateUser(request: AuthRequest, allowNewRegister: Boolean): Us
 	require(request.password.length in 2..24) {
 		"Password should be from 2 to 24 characters long"
 	}
-	require(request.email.length in 5..120 && '@' in request.email) {
+	require(request.email.length in 5..320 && '@' in request.email) {
 		"Invalid email address"
 	}
 	val passDigest = request.password.md5()
@@ -22,7 +22,7 @@ suspend fun getOrCreateUser(request: AuthRequest, allowNewRegister: Boolean): Us
 	when {
 		user == null && allowNewRegister -> registerUser(request, passDigest)
 		user == null -> null
-		user.password == passDigest -> user.toUserInfo()
+		user.passwordHash == passDigest -> user.toUserInfo()
 		else -> null
 	}
 }
@@ -30,7 +30,7 @@ suspend fun getOrCreateUser(request: AuthRequest, allowNewRegister: Boolean): Us
 private fun registerUser(request: AuthRequest, passwordDigest: String): UserInfo? {
 	val userId = database.insertAndGenerateKey(UsersTable) {
 		set(it.email, request.email)
-		set(it.password, passwordDigest)
+		set(it.passwordHash, passwordDigest)
 		set(it.nickname, null)
 		set(it.favouritesSyncTimestamp, null)
 		set(it.historySyncTimestamp, null)

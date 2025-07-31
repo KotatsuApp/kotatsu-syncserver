@@ -1,10 +1,9 @@
-package org.kotatsu.model.favourite
+package org.kotatsu.model.category
 
 import org.kotatsu.model.user.UserEntity
 import org.ktorm.entity.Entity
 
 interface CategoryEntity : Entity<CategoryEntity> {
-
 	var id: Int
 	var createdAt: Long
 	var sortKey: Int

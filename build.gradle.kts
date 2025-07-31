@@ -2,6 +2,7 @@ plugins {
 	alias(libs.plugins.kotlin.jvm)
 	alias(libs.plugins.ktor)
 	alias(libs.plugins.kotlin.plugin.serialization)
+	alias(libs.plugins.flyway)
 }
 
 group = "org.kotatsu"
@@ -31,8 +32,11 @@ dependencies {
 	implementation(libs.ktor.server.auto.head.response)
     implementation(libs.ktorm.core)
     implementation(libs.ktorm.support.mysql)
+	implementation(libs.flyway.core)
+	implementation(libs.flyway.mysql)
 	implementation(libs.hikaricp)
 	implementation(libs.mysql.connector.j)
+	implementation(libs.mariadb.java.client)
     implementation(libs.logback.classic)
 	testImplementation(libs.ktor.server.test.host)
     testImplementation(libs.kotlin.test.junit)

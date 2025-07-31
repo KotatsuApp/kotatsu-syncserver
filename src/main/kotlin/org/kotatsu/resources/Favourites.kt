@@ -2,10 +2,10 @@ package org.kotatsu.resources
 
 import org.kotatsu.database
 import org.kotatsu.model.categories
+import org.kotatsu.model.category.*
 import org.kotatsu.model.favourite.*
 import org.kotatsu.model.favourites
 import org.kotatsu.model.user.UserEntity
-import org.kotatsu.util.toBoolean
 import org.kotatsu.util.truncated
 import org.kotatsu.util.withRetry
 import org.ktorm.database.Database

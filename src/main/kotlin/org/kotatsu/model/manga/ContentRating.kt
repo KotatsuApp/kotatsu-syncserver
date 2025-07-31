@@ -4,7 +4,6 @@ enum class ContentRating {
 	SAFE, SUGGESTIVE, ADULT;
 
 	companion object {
-
 		fun from(name: String?) = if (name.isNullOrEmpty()) {
 			null
 		} else {

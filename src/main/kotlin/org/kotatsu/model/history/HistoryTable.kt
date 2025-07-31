@@ -8,7 +8,6 @@ import org.ktorm.schema.int
 import org.ktorm.schema.long
 
 object HistoryTable : Table<HistoryEntity>("history") {
-
 	val manga = long("manga_id").references(MangaTable) { it.manga }.primaryKey()
 
 	val createdAt = long("created_at").bindTo { it.createdAt }

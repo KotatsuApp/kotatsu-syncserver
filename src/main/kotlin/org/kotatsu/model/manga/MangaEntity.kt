@@ -8,7 +8,6 @@ import org.ktorm.entity.filter
 import org.ktorm.entity.mapTo
 
 interface MangaEntity : Entity<MangaEntity> {
-
 	var id: Long
 	var title: String
 	var altTitle: String?

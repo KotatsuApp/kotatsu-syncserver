@@ -20,8 +20,8 @@ suspend fun Database.upsertManga(manga: Manga) {
 	withRetry {
 		insertOrUpdate(MangaTable) {
 			set(it.id, manga.id)
-			set(it.title, manga.title.truncated(84))
-			set(it.altTitle, manga.altTitle?.truncated(84))
+			set(it.title, manga.title.truncated(100))
+			set(it.altTitle, manga.altTitle?.truncated(100))
 			set(it.url, manga.url.truncated(255))
 			set(it.publicUrl, manga.publicUrl.truncated(255))
 			set(it.rating, manga.rating)
@@ -32,8 +32,8 @@ suspend fun Database.upsertManga(manga: Manga) {
 			set(it.author, manga.author?.truncated(64))
 			set(it.mangaSource, manga.source.truncated(32))
 			onDuplicateKey {
-				set(it.title, manga.title.truncated(84))
-				set(it.altTitle, manga.altTitle?.truncated(84))
+				set(it.title, manga.title.truncated(100))
+				set(it.altTitle, manga.altTitle?.truncated(100))
 				set(it.url, manga.url.truncated(255))
 				set(it.publicUrl, manga.publicUrl.truncated(255))
 				set(it.rating, manga.rating)

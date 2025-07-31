@@ -5,7 +5,6 @@ import org.kotatsu.model.user.UserEntity
 import org.ktorm.entity.Entity
 
 interface FavouriteEntity : Entity<FavouriteEntity> {
-
 	var manga: MangaEntity
 	var categoryId: Int
 	var sortKey: Int

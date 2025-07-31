@@ -8,7 +8,6 @@ import org.ktorm.schema.int
 import org.ktorm.schema.long
 
 object FavouritesTable : Table<FavouriteEntity>("favourites") {
-
 	val manga = long("manga_id").references(MangaTable) { it.manga }.primaryKey()
 	val category = int("category_id").bindTo { it.categoryId }.primaryKey()
 	val sortKey = int("sort_key").bindTo { it.sortKey }
