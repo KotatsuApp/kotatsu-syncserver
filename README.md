@@ -75,7 +75,7 @@ Commands:
 ```shell
 git clone https://github.com/KotatsuApp/kotatsu-syncserver.git \
   && cd kotatsu-syncserver \
-  && ./gradlew buildFatJar
+  && ./gradlew shadowJar
 ```
 
 Then edit file `kotatsu-sync.service`, change `replaceme` fields with your values (MySQL is used for database) and specify the `kotatsu-syncserver-0.0.1.jar` file location (it can be found in `build/libs` directory after building)
