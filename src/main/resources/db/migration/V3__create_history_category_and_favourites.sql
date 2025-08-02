@@ -50,7 +50,3 @@ CREATE TABLE history (
 		FOREIGN KEY (user_id) REFERENCES users(id)
 		ON DELETE CASCADE
 );
-
---DROP TABLE IF EXISTS history;
---DROP TABLE IF EXISTS favourites;
---DROP TABLE IF EXISTS categories;

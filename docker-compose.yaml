@@ -4,16 +4,25 @@ services:
     ports:
       - "3306:3306"
     environment:
-      MYSQL_USER: your_user
-      MYSQL_PASSWORD: your_password
-      MYSQL_DATABASE: kotatsu_db
-      MYSQL_ALLOW_EMPTY_PASSWORD: true
+      MARIADB_ROOT_PASSWORD: ${DATABASE_ROOT_PASSWORD:-root-password}
+      MARIADB_USER: ${DATABASE_USER:-kotatsu}
+      MARIADB_PASSWORD: ${DATABASE_PASSWORD:-password}
+      MARIADB_DATABASE: ${DATABASE_NAME:-kotatsu_db}
+    healthcheck:
+      test: [ "CMD", "healthcheck.sh", "--connect", "--innodb_initialized" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
     volumes:
-      - /var/lib/mariadb:/var/lib/mysql
+      - ${DATABASE_DATA_PATH:-kotatsu-db}:/var/lib/mysql
 
   server:
     extends:
       service: server
       file: docker-compose.common.yaml
     depends_on:
-      - db
+      db:
+        condition: service_healthy
+
+volumes:
+  kotatsu-db:

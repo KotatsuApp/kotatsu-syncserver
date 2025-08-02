@@ -40,3 +40,6 @@ out/
 
 ### Misc ###
 .DS_Store
+
+### Dotenv ###
+.env

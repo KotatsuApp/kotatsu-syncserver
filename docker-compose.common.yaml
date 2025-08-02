@@ -4,12 +4,12 @@ services:
     build: .
     restart: unless-stopped
     ports:
-      - "8081:8080"
+      - "${SERVER_PORT:-8080}:8080"
     environment:
       DATABASE_HOST: db
-      DATABASE_USER: your_user
-      DATABASE_PASSWORD: your_password
-      DATABASE_NAME: kotatsu_db
+      DATABASE_USER: ${DATABASE_USER:-kotatsu}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD:-password}
+      DATABASE_NAME: ${DATABASE_NAME:-kotatsu_db}
       DATABASE_PORT: 3306
-      JWT_SECRET: your_secret
-      ALLOW_NEW_REGISTER: true
+      JWT_SECRET: ${JWT_SECRET:-secret-string}
+      ALLOW_NEW_REGISTER: ${ALLOW_NEW_REGISTER:-true}

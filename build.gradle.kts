@@ -1,7 +1,10 @@
+import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
+
 plugins {
 	alias(libs.plugins.kotlin.jvm)
 	alias(libs.plugins.ktor)
 	alias(libs.plugins.kotlin.plugin.serialization)
+	alias(libs.plugins.shadow)
 	alias(libs.plugins.flyway)
 }
 
@@ -17,6 +20,10 @@ application {
 
 repositories {
     mavenCentral()
+}
+
+tasks.named<ShadowJar>("shadowJar") {
+	mergeServiceFiles()
 }
 
 dependencies {

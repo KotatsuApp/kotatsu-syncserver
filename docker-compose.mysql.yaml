@@ -4,12 +4,17 @@ services:
     ports:
       - "3306:3306"
     environment:
-      MYSQL_USER: your_user
-      MYSQL_PASSWORD: your_password
-      MYSQL_DATABASE: kotatsu_db
-      MYSQL_ALLOW_EMPTY_PASSWORD: true
+      MYSQL_ROOT_PASSWORD: ${DATABASE_ROOT_PASSWORD:-root-password}
+      MYSQL_USER: ${DATABASE_USER:-kotatsu}
+      MYSQL_PASSWORD: ${DATABASE_PASSWORD:-password}
+      MYSQL_DATABASE: ${DATABASE_NAME:-kotatsu_db}
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
     volumes:
-      - /var/lib/mysql:/var/lib/mysql
+      - ${DATABASE_DATA_PATH:-kotatsu-db}:/var/lib/mysql
 
   server:
     extends:
@@ -18,5 +23,8 @@ services:
     environment:
       DATABASE_DIALECT: mysql
     depends_on:
-      - db
+      db:
+        condition: service_healthy
 
+volumes:
+  kotatsu-db:

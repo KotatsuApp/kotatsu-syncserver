@@ -31,7 +31,3 @@ CREATE TABLE manga_tags (
 		FOREIGN KEY (manga_id) REFERENCES manga(id)
 		ON DELETE CASCADE
 );
-
---DROP TABLE IF EXISTS manga_tags;
---DROP TABLE IF EXISTS tags;
---DROP TABLE IF EXISTS manga;

@@ -1,2 +1,8 @@
 .git
 .gradle
+.github
+.idea
+.env
+.env.example
+.DS_Store
+
