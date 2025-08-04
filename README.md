@@ -41,13 +41,13 @@ Yes, you can use your synchronization server in the application by specifying it
 
 ### Docker
 
-Build image container:
+#### Build image container:
 
 ```shell
 docker build github.com/KotatsuApp/kotatsu-syncserver.git -t kotatsuapp/syncserver
 ```
 
-Run container:
+#### Run container:
 
 ```shell
 docker run -d -p 8081:8080 \
@@ -64,6 +64,31 @@ docker run -d -p 8081:8080 \
 
 In case you don't want others to use your instance, register your accounts then set `ALLOW_NEW_REGISTER` to `false`.
 
+### Docker compose
+
+#### Clone the repository:
+```shell
+git clone https://github.com/KotatsuApp/kotatsu-syncserver.git \
+  && cd kotatsu-syncserver
+```
+
+#### Specify your settings (optional)
+
+When the project is launched, the default settings will be used. You can override them via the .env file.
+
+> [!IMPORTANT]
+> If you want to override the database settings, you must do so before starting the `db` service, otherwise you will have to delete the database files and restart it.
+
+```shell
+cp .env.example .env
+```
+
+#### Start services:
+
+```shell
+docker compose up -d
+```
+
 ### Systemd
 
 Requirements:
@@ -75,7 +100,7 @@ Commands:
 ```shell
 git clone https://github.com/KotatsuApp/kotatsu-syncserver.git \
   && cd kotatsu-syncserver \
-  && ./gradlew buildFatJar
+  && ./gradlew shadowJar
 ```
 
 Then edit file `kotatsu-sync.service`, change `replaceme` fields with your values (MySQL is used for database) and specify the `kotatsu-syncserver-0.0.1.jar` file location (it can be found in `build/libs` directory after building)

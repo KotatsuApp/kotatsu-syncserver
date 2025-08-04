@@ -7,5 +7,3 @@ CREATE TABLE users (
 	history_sync_timestamp BIGINT,
 	CONSTRAINT uq_users_email UNIQUE (email)
 );
-
---DROP TABLE IF EXISTS users;
