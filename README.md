@@ -93,7 +93,7 @@ docker compose up -d
 
 Requirements:
 1. JDK 21+
-2. Gradle 8.13+
+2. Gradle 9.0+
 
 Commands:
 
