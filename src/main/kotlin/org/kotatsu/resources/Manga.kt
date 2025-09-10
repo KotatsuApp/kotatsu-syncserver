@@ -65,7 +65,7 @@ suspend fun Database.upsertManga(manga: Manga) {
                     set(it.manga, manga.id)
                     set(it.tag, tag.id)
                 }
-            } catch (e: SQLIntegrityConstraintViolationException) {
+            } catch (_: SQLIntegrityConstraintViolationException) {
                 // skip
             }
         }

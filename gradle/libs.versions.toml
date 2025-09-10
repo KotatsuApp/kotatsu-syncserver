@@ -9,6 +9,7 @@ mariadb-java-client = "3.5.6"
 flyway = "11.13.2"
 hikaricp = "7.0.2"
 shadow = "9.2.2"
+jakarta-mail = "2.0.2"
 
 [libraries]
 ktor-server-core = { module = "io.ktor:ktor-server-core", version.ref = "ktor" }
@@ -31,6 +32,7 @@ mariadb-java-client = { module = "org.mariadb.jdbc:mariadb-java-client", version
 hikaricp = { module = "com.zaxxer:HikariCP", version.ref = "hikaricp" }
 flyway-core = { module = "org.flywaydb:flyway-core", version.ref = "flyway" }
 flyway-mysql = { module = "org.flywaydb:flyway-mysql", version.ref = "flyway" }
+jakarta-mail = { module = "com.sun.mail:jakarta.mail", version.ref = "jakarta-mail" }
 
 logback-classic = { module = "ch.qos.logback:logback-classic", version.ref = "logback" }
 

@@ -47,6 +47,7 @@ dependencies {
     implementation(libs.mysql.connector.j)
     implementation(libs.mariadb.java.client)
     implementation(libs.logback.classic)
+    implementation(libs.jakarta.mail)
     testImplementation(libs.ktor.server.test.host)
     testImplementation(libs.kotlin.test.junit)
 }
