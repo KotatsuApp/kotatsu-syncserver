@@ -18,6 +18,7 @@ ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx
 ktor-server-status-pages = { module = "io.ktor:ktor-server-status-pages", version.ref = "ktor-version" }
 flyway-core = { module = "org.flywaydb:flyway-core", version.ref = "flyway" }
 flyway-mysql = { module = "org.flywaydb:flyway-mysql", version.ref = "flyway" }
+jakarta-mail = { module = "com.sun.mail:jakarta.mail", version = "2.0.2" }
 
 ktorm-core = { module = "org.ktorm:ktorm-core", version.ref = "ktorm-version" }
 ktorm-support-mysql = { module = "org.ktorm:ktorm-support-mysql", version.ref = "ktorm-version" }
