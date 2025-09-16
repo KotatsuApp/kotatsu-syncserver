@@ -26,14 +26,30 @@ class SmtpMailSender(private val config: SmtpConfig) : MailSender {
         })
     }
 
-    override suspend fun send(to: String, subject: String, textBody: String) {
+    override suspend fun send(to: String, subject: String, textBody: String, htmlBody: String?) {
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 val message = MimeMessage(session).apply {
                     setFrom(InternetAddress(config.from))
                     setRecipients(Message.RecipientType.TO, InternetAddress.parse(to))
                     setSubject(subject)
-                    setText(textBody)
+                    if (htmlBody != null) {
+                        val multipart = jakarta.mail.internet.MimeMultipart("alternative")
+
+                        val textPart = jakarta.mail.internet.MimeBodyPart().apply {
+                            setText(textBody, "utf-8")
+                        }
+                        val htmlPart = jakarta.mail.internet.MimeBodyPart().apply {
+                            setContent(htmlBody, "text/html; charset=utf-8")
+                        }
+
+                        multipart.addBodyPart(textPart)
+                        multipart.addBodyPart(htmlPart)
+
+                        setContent(multipart)
+                    } else {
+                        setText(textBody)
+                    }
                 }
 
                 Transport.send(message)
