@@ -11,7 +11,6 @@ import org.kotatsu.mailService
 import org.kotatsu.model.user.AuthRequest
 import org.kotatsu.model.user.ForgotPasswordRequest
 import org.kotatsu.model.user.ResetPasswordRequest
-import org.kotatsu.model.user.UsersTable
 import org.kotatsu.model.users
 import org.kotatsu.resources.*
 import org.kotatsu.util.*
@@ -44,6 +43,9 @@ fun Route.authRoutes(){
 	}
 
 	post<ForgotPasswordRequest>("/forgot-password") { request ->
+        val config = application.environment.config
+        val baseUrl = config.property("kotatsu.base_url")
+
 		val user = database.users.find { it.email eq request.email }
 		if (user == null) {
 			call.respond(HttpStatusCode.OK, "A password reset email was sent")
@@ -64,10 +66,40 @@ fun Route.authRoutes(){
 
 		val token = setPasswordResetToken(request, user)
 
-		mailService.send(to = user.email, subject = "Password reset", body = "You can reset your password in kotatsu://reset-password?reset_token=$token")
+        val resetPasswordLink = "${baseUrl}/reset-password?reset_token=$token\""
+		mailService.send(to = user.email, subject = "Password reset",
+            textBody = "You can reset your password in $resetPasswordLink",
+            htmlBody = "You can reset your password in <a href=\"$resetPasswordLink\">$resetPasswordLink</a>")
 
 		call.respond(HttpStatusCode.OK, "A password reset email was sent")
 	}
+
+    get("/reset-password") {
+        val token = call.request.queryParameters["token"]
+        if (token.isNullOrBlank()) {
+            call.respond(HttpStatusCode.BadRequest, "Missing token")
+            return@get
+        }
+
+        val deepLink = "kotatsu://reset-password?token=$token"
+
+        call.respondText(
+            """
+        <html>
+            <head>
+                <meta charset="UTF-8">
+                <script type="text/javascript">
+                    window.location.href = "$deepLink";
+                </script>
+            </head>
+            <body>
+                <p>If you are not redirected automatically, <a href="$deepLink">click here</a>.</p>
+            </body>
+        </html>
+        """.trimIndent(),
+            contentType = io.ktor.http.ContentType.Text.Html
+        )
+    }
 
 	post<ResetPasswordRequest>("/reset-password") { request ->
         val token = request.resetToken

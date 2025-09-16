@@ -7,12 +7,10 @@ import org.kotatsu.mail.SmtpMailSender
 import org.kotatsu.mailService
 
 fun Application.configureMail() {
-    val useConsole = environment.config.propertyOrNull("kotatsu.mail_provider")?.getString() == "console"
+    val provider = environment.config.propertyOrNull("kotatsu.mail_provider")?.getString() ?: "console"
 
-    mailService = if (useConsole) {
-        ConsoleMailSender()
-    } else {
-        val config = MailConfig.fromConfig(environment.config)
-        SmtpMailSender(config)
+    mailService = when (provider) {
+        "smtp" -> SmtpMailSender(MailConfig.fromConfig(environment.config))
+        else -> ConsoleMailSender()
     }
 }
