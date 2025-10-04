@@ -22,8 +22,9 @@ repositories {
     mavenCentral()
 }
 
-tasks.named<ShadowJar>("shadowJar") {
-	mergeServiceFiles()
+tasks.withType<ShadowJar>().configureEach {
+    mergeServiceFiles()
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
 }
 
 dependencies {
