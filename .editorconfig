@@ -9,14 +9,16 @@ insert_final_newline = true
 max_line_length = 120
 trim_trailing_whitespace = true
 # noinspection EditorConfigKeyCorrectness
-disabled_rules = no-wildcard-imports,no-unused-imports
+disabled_rules = no-wildcard-imports, no-unused-imports
 
 [*.{kt,kts}]
 ij_kotlin_code_style_defaults = KOTLIN_OFFICIAL
 ij_kotlin_allow_trailing_comma = true
 
-[*.{yaml,yml,md}]
+[*.{yaml,yml}]
 indent_size = 2
 
 [*.md]
+indent_size = 2
+max_line_length = off
 trim_trailing_whitespace = false

@@ -14,42 +14,42 @@ import org.kotatsu.resources.syncHistory
 import org.ktorm.database.TransactionIsolation
 
 fun Route.historyRoutes() {
-	authenticate("auth-jwt") {
-		get("/resource/history") {
-			val user = call.currentUser
-			if (user == null) {
-				call.respond(HttpStatusCode.Unauthorized)
-				return@get
-			}
+    authenticate("auth-jwt") {
+        get("/resource/history") {
+            val user = call.currentUser
+            if (user == null) {
+                call.respond(HttpStatusCode.Unauthorized)
+                return@get
+            }
 
-			val response = withContext(Dispatchers.IO) {
-				database.useTransaction(TransactionIsolation.READ_COMMITTED) {
-					syncHistory(user, null)
-				}
-			}
+            val response = withContext(Dispatchers.IO) {
+                database.useTransaction(TransactionIsolation.READ_COMMITTED) {
+                    syncHistory(user, null)
+                }
+            }
 
-			call.respond(response)
-		}
-		post<HistoryPackage>("/resource/history") { request ->
-			val user = call.currentUser
-			if (user == null) {
-				call.respond(HttpStatusCode.Unauthorized)
-				return@post
-			}
+            call.respond(response)
+        }
+        post<HistoryPackage>("/resource/history") { request ->
+            val user = call.currentUser
+            if (user == null) {
+                call.respond(HttpStatusCode.Unauthorized)
+                return@post
+            }
 
-			val response = withContext(Dispatchers.IO) {
-				database.useTransaction(TransactionIsolation.READ_COMMITTED) {
-					val result = syncHistory(user, request)
-					user.setHistorySynchronized(System.currentTimeMillis())
-					result
-				}
-			}
+            val response = withContext(Dispatchers.IO) {
+                database.useTransaction(TransactionIsolation.READ_COMMITTED) {
+                    val result = syncHistory(user, request)
+                    user.setHistorySynchronized(System.currentTimeMillis())
+                    result
+                }
+            }
 
-			if (response.contentEquals(request)) {
-				call.respond(HttpStatusCode.NoContent)
-			} else {
-				call.respond(response)
-			}
-		}
-	}
+            if (response.contentEquals(request)) {
+                call.respond(HttpStatusCode.NoContent)
+            } else {
+                call.respond(response)
+            }
+        }
+    }
 }

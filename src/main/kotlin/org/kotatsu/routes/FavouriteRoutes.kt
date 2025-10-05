@@ -14,36 +14,36 @@ import org.kotatsu.resources.syncFavourites
 import org.ktorm.database.TransactionIsolation
 
 fun Route.favouriteRoutes() {
-	authenticate("auth-jwt") {
-		get("/resource/favourites") {
-			val user = call.currentUser
-			if (user == null) {
-				call.respond(HttpStatusCode.Unauthorized)
-				return@get
-			}
-			val response = syncFavourites(user, null)
-			call.respond(response)
-		}
-		post<FavouritesPackage>("/resource/favourites") { request ->
-			val user = call.currentUser
-			if (user == null) {
-				call.respond(HttpStatusCode.Unauthorized)
-				return@post
-			}
+    authenticate("auth-jwt") {
+        get("/resource/favourites") {
+            val user = call.currentUser
+            if (user == null) {
+                call.respond(HttpStatusCode.Unauthorized)
+                return@get
+            }
+            val response = syncFavourites(user, null)
+            call.respond(response)
+        }
+        post<FavouritesPackage>("/resource/favourites") { request ->
+            val user = call.currentUser
+            if (user == null) {
+                call.respond(HttpStatusCode.Unauthorized)
+                return@post
+            }
 
-			val response = withContext(Dispatchers.IO) {
-				database.useTransaction(TransactionIsolation.READ_COMMITTED) {
-					val result = syncFavourites(user, request)
-					user.setFavouritesSynchronized(System.currentTimeMillis())
-					result
-				}
-			}
+            val response = withContext(Dispatchers.IO) {
+                database.useTransaction(TransactionIsolation.READ_COMMITTED) {
+                    val result = syncFavourites(user, request)
+                    user.setFavouritesSynchronized(System.currentTimeMillis())
+                    result
+                }
+            }
 
-			if (response.contentEquals(request)) {
-				call.respond(HttpStatusCode.NoContent)
-			} else {
-				call.respond(response)
-			}
-		}
-	}
+            if (response.contentEquals(request)) {
+                call.respond(HttpStatusCode.NoContent)
+            } else {
+                call.respond(response)
+            }
+        }
+    }
 }

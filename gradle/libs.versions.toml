@@ -42,4 +42,4 @@ kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 ktor = { id = "io.ktor.plugin", version.ref = "ktor" }
 kotlin-plugin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 shadow = { id = "com.gradleup.shadow", version.ref = "shadow" }
-flyway = { id = "org.flywaydb.flyway", version.ref = "flyway"}
+flyway = { id = "org.flywaydb.flyway", version.ref = "flyway" }

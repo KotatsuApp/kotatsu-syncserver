@@ -67,6 +67,7 @@ In case you don't want others to use your instance, register your accounts then 
 ### Docker compose
 
 #### Clone the repository:
+
 ```shell
 git clone https://github.com/KotatsuApp/kotatsu-syncserver.git \
   && cd kotatsu-syncserver
@@ -92,6 +93,7 @@ docker compose up -d
 ### Systemd
 
 Requirements:
+
 1. JDK 21+
 2. Gradle 9.0+
 
