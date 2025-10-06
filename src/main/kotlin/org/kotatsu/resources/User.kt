@@ -3,12 +3,19 @@ package org.kotatsu.resources
 import org.kotatsu.database
 import org.kotatsu.model.user.*
 import org.kotatsu.model.users
-import org.kotatsu.util.md5
 import org.kotatsu.util.withRetry
 import org.ktorm.dsl.eq
 import org.ktorm.dsl.insertAndGenerateKey
 import org.ktorm.entity.find
 import org.ktorm.entity.singleOrNull
+import org.kotatsu.util.PasswordHasher
+import org.kotatsu.util.generateSecureToken
+import org.kotatsu.util.md5
+import org.kotatsu.util.sha256Hex
+import org.ktorm.dsl.and
+import org.ktorm.dsl.greaterEq
+import org.ktorm.dsl.update
+import java.time.Instant
 
 suspend fun getOrCreateUser(request: AuthRequest, allowNewRegister: Boolean): UserInfo? = withRetry {
 	require(request.password.length in 2..24) {
@@ -17,13 +24,34 @@ suspend fun getOrCreateUser(request: AuthRequest, allowNewRegister: Boolean): Us
 	require(request.email.length in 5..320 && '@' in request.email) {
 		"Invalid email address"
 	}
-	val passDigest = request.password.md5()
+
 	val user = database.users.find { (it.email eq request.email) }
+
 	when {
-		user == null && allowNewRegister -> registerUser(request, passDigest)
+		user == null && allowNewRegister -> {
+			val newPasswordHash = PasswordHasher.hash(request.password)
+			registerUser(request, newPasswordHash)
+		}
 		user == null -> null
-		user.passwordHash == passDigest -> user.toUserInfo()
-		else -> null
+		else -> {
+			val storedHash = user.passwordHash
+
+			when {
+				PasswordHasher.isArgon2Hash(storedHash) -> {
+					if (PasswordHasher.verify(request.password, storedHash)) {
+						user.toUserInfo()
+					} else null
+				}
+				else -> { // MD5 legacy
+					if (storedHash == request.password.md5()) {
+						// Upgrade to argon2id
+						user.passwordHash = PasswordHasher.hash(request.password)
+						user.flushChanges()
+						user.toUserInfo()
+					} else null
+				}
+			}
+		}
 	}
 }
 
@@ -38,6 +66,38 @@ private fun registerUser(request: AuthRequest, passwordDigest: String): UserInfo
 	return database.users
 		.singleOrNull { (it.id eq userId) }
 		?.toUserInfo()
+}
+
+suspend fun setPasswordResetToken(request: ForgotPasswordRequest, user: UserEntity): String {
+    val token = generateSecureToken()
+    val tokenHash = sha256Hex(token)
+    val now = Instant.now().epochSecond
+    val expiresAt = now + 900 // 15 minutes
+
+    database.update(UsersTable) {
+        set(it.passwordResetTokenHash, tokenHash)
+        set(it.passwordResetTokenExpiresAt, expiresAt)
+        where { it.id eq user.id}
+    }
+
+    return token
+}
+
+fun UserEntity.resetPassword(newPasswordHash: String) {
+    passwordHash = newPasswordHash
+    passwordResetTokenHash = null
+    passwordResetTokenExpiresAt = null
+    flushChanges()
+}
+
+suspend fun findUserByValidPasswordResetToken(token: String): UserEntity? {
+    val now = Instant.now().epochSecond
+    val tokenHash = sha256Hex(token)
+
+    return database.users.find {
+        (it.passwordResetTokenHash eq tokenHash) and
+        (it.passwordResetTokenExpiresAt greaterEq now)
+    }
 }
 
 fun UserEntity.setFavouritesSynchronized(timestamp: Long) {

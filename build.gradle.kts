@@ -22,8 +22,9 @@ repositories {
     mavenCentral()
 }
 
-tasks.named<ShadowJar>("shadowJar") {
+tasks.withType<ShadowJar>().configureEach {
 	mergeServiceFiles()
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
 }
 
 dependencies {
@@ -42,9 +43,11 @@ dependencies {
 	implementation(libs.flyway.core)
 	implementation(libs.flyway.mysql)
 	implementation(libs.hikaricp)
+	implementation(libs.argon2)
 	implementation(libs.mysql.connector.j)
 	implementation(libs.mariadb.java.client)
     implementation(libs.logback.classic)
+	implementation(libs.jakarta.mail)
 	testImplementation(libs.ktor.server.test.host)
     testImplementation(libs.kotlin.test.junit)
 }
