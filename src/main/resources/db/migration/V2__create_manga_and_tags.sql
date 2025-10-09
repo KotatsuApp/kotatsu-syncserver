@@ -11,14 +11,14 @@ CREATE TABLE manga (
     state ENUM('ONGOING', 'FINISHED', 'ABANDONED', 'PAUSED', 'UPCOMING', 'RESTRICTED'),
     author VARCHAR(64),
     source VARCHAR(32) NOT NULL
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 CREATE TABLE tags (
     id BIGINT PRIMARY KEY,
     title VARCHAR(64) NOT NULL,
     `key` VARCHAR(120) NOT NULL,
     source VARCHAR(32) NOT NULL
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 CREATE TABLE manga_tags (
     manga_id BIGINT NOT NULL,
@@ -32,4 +32,4 @@ CREATE TABLE manga_tags (
         FOREIGN KEY (manga_id)
         REFERENCES manga(id)
         ON DELETE CASCADE
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;

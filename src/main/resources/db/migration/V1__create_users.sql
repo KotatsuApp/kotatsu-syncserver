@@ -6,4 +6,4 @@ CREATE TABLE users (
     favourites_sync_timestamp BIGINT,
     history_sync_timestamp BIGINT,
     CONSTRAINT uq_users_email UNIQUE (email)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
