@@ -13,7 +13,7 @@ CREATE TABLE categories (
         FOREIGN KEY (user_id)
         REFERENCES users(id)
         ON DELETE CASCADE
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 CREATE TABLE favourites (
     manga_id BIGINT NOT NULL,
@@ -32,7 +32,7 @@ CREATE TABLE favourites (
         FOREIGN KEY (user_id)
         REFERENCES users(id)
         ON DELETE CASCADE
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 CREATE TABLE history (
     manga_id BIGINT NOT NULL,
@@ -54,4 +54,4 @@ CREATE TABLE history (
         FOREIGN KEY (user_id)
         REFERENCES users(id)
         ON DELETE CASCADE
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
