@@ -1,38 +1,45 @@
 [versions]
-kotlin-version = "2.2.0"
-ktor-version = "3.2.2"
-ktorm-version = "4.1.1"
-logback-version = "1.5.18"
-flyway = "11.10.3"
+kotlin = "2.2.20"
+ktor = "3.3.0"
+ktorm = "4.1.1"
+logback = "1.5.19"
+argon2 = "2.12"
+mysql-connector-j = "9.4.0"
+mariadb-java-client = "3.5.6"
+flyway = "11.13.2"
+hikaricp = "7.0.2"
+shadow = "9.2.2"
 
 [libraries]
-ktor-server-core = { module = "io.ktor:ktor-server-core", version.ref = "ktor-version" }
-ktor-server-auth = { module = "io.ktor:ktor-server-auth", version.ref = "ktor-version" }
-ktor-server-call-logging = { module = "io.ktor:ktor-server-call-logging", version.ref = "ktor-version" }
-ktor-server-auto-head-response = { module = "io.ktor:ktor-server-auto-head-response", version.ref = "ktor-version" }
-ktor-server-compression = { module = "io.ktor:ktor-server-compression", version.ref = "ktor-version" }
-ktor-server-auth-jwt = { module = "io.ktor:ktor-server-auth-jwt", version.ref = "ktor-version" }
-ktor-server-netty = { module = "io.ktor:ktor-server-netty", version.ref = "ktor-version" }
-ktor-server-content-negotiation = { module = "io.ktor:ktor-server-content-negotiation", version.ref = "ktor-version" }
-ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor-version" }
-ktor-server-status-pages = { module = "io.ktor:ktor-server-status-pages", version.ref = "ktor-version" }
+ktor-server-core = { module = "io.ktor:ktor-server-core", version.ref = "ktor" }
+ktor-server-auth = { module = "io.ktor:ktor-server-auth", version.ref = "ktor" }
+ktor-server-call-logging = { module = "io.ktor:ktor-server-call-logging", version.ref = "ktor" }
+ktor-server-auto-head-response = { module = "io.ktor:ktor-server-auto-head-response", version.ref = "ktor" }
+ktor-server-compression = { module = "io.ktor:ktor-server-compression", version.ref = "ktor" }
+ktor-server-auth-jwt = { module = "io.ktor:ktor-server-auth-jwt", version.ref = "ktor" }
+ktor-server-netty = { module = "io.ktor:ktor-server-netty", version.ref = "ktor" }
+ktor-server-content-negotiation = { module = "io.ktor:ktor-server-content-negotiation", version.ref = "ktor" }
+ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
+ktor-server-status-pages = { module = "io.ktor:ktor-server-status-pages", version.ref = "ktor" }
+
+argon2 = { module = "de.mkammerer:argon2-jvm", version.ref = "argon2" }
+
+ktorm-core = { module = "org.ktorm:ktorm-core", version.ref = "ktorm" }
+ktorm-support-mysql = { module = "org.ktorm:ktorm-support-mysql", version.ref = "ktorm" }
+mysql-connector-j = { module = "com.mysql:mysql-connector-j", version.ref = "mysql-connector-j" }
+mariadb-java-client = { module = "org.mariadb.jdbc:mariadb-java-client", version.ref = "mariadb-java-client" }
+hikaricp = { module = "com.zaxxer:HikariCP", version.ref = "hikaricp" }
 flyway-core = { module = "org.flywaydb:flyway-core", version.ref = "flyway" }
 flyway-mysql = { module = "org.flywaydb:flyway-mysql", version.ref = "flyway" }
 
-ktorm-core = { module = "org.ktorm:ktorm-core", version.ref = "ktorm-version" }
-ktorm-support-mysql = { module = "org.ktorm:ktorm-support-mysql", version.ref = "ktorm-version" }
-mysql-connector-j = { module = "com.mysql:mysql-connector-j", version = "9.2.0" }
-mariadb-java-client = { module = "org.mariadb.jdbc:mariadb-java-client", version = "3.5.4" }
-hikaricp = { module = "com.zaxxer:HikariCP", version = "6.3.0" }
+logback-classic = { module = "ch.qos.logback:logback-classic", version.ref = "logback" }
 
-logback-classic = { module = "ch.qos.logback:logback-classic", version.ref = "logback-version" }
-
-ktor-server-test-host = { module = "io.ktor:ktor-server-test-host", version.ref = "ktor-version" }
-kotlin-test-junit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin-version" }
+ktor-server-test-host = { module = "io.ktor:ktor-server-test-host", version.ref = "ktor" }
+kotlin-test-junit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
 
 [plugins]
-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin-version" }
-ktor = { id = "io.ktor.plugin", version.ref = "ktor-version" }
-kotlin-plugin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin-version" }
-shadow = { id = "com.gradleup.shadow", version = "8.3.8" }
-flyway = { id = "org.flywaydb.flyway", version.ref = "flyway"}
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+ktor = { id = "io.ktor.plugin", version.ref = "ktor" }
+kotlin-plugin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+shadow = { id = "com.gradleup.shadow", version.ref = "shadow" }
+flyway = { id = "org.flywaydb.flyway", version.ref = "flyway" }

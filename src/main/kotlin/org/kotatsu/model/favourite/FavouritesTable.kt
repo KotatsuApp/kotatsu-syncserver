@@ -8,11 +8,11 @@ import org.ktorm.schema.int
 import org.ktorm.schema.long
 
 object FavouritesTable : Table<FavouriteEntity>("favourites") {
-	val manga = long("manga_id").references(MangaTable) { it.manga }.primaryKey()
-	val category = int("category_id").bindTo { it.categoryId }.primaryKey()
-	val sortKey = int("sort_key").bindTo { it.sortKey }
-	val pinned = boolean("pinned").bindTo { it.pinned }
-	val createdAt = long("created_at").bindTo { it.createdAt }
-	val deletedAt = long("deleted_at").bindTo { it.deletedAt }
-	val userId = int("user_id").references(UsersTable) { it.user }.primaryKey()
+    val manga = long("manga_id").references(MangaTable) { it.manga }.primaryKey()
+    val category = int("category_id").bindTo { it.categoryId }.primaryKey()
+    val sortKey = int("sort_key").bindTo { it.sortKey }
+    val pinned = boolean("pinned").bindTo { it.pinned }
+    val createdAt = long("created_at").bindTo { it.createdAt }
+    val deletedAt = long("deleted_at").bindTo { it.deletedAt }
+    val userId = int("user_id").references(UsersTable) { it.user }.primaryKey()
 }

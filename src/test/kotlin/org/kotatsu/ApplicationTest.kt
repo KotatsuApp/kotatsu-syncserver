@@ -8,14 +8,14 @@ import io.ktor.server.testing.*
 import kotlin.test.*
 
 class ApplicationTest {
-	@Test
-	fun testRoot() = testApplication {
-		environment {
-			config = ApplicationConfig("application.conf")
-		}
-		client.get("/").apply {
-			assertEquals(HttpStatusCode.OK, status)
-			assertEquals("Alive", bodyAsText())
-		}
-	}
+    @Test
+    fun testRoot() = testApplication {
+        environment {
+            config = ApplicationConfig("application.conf")
+        }
+        client.get("/").apply {
+            assertEquals(HttpStatusCode.OK, status)
+            assertEquals("Alive", bodyAsText())
+        }
+    }
 }

@@ -8,10 +8,10 @@ import kotlin.jvm.internal.Intrinsics
 @Serializable
 @JsonIgnoreUnknownKeys
 data class HistoryPackage(
-	@SerialName("history") val history: List<History>,
-	@SerialName("timestamp") val timestamp: Long?,
+    @SerialName("history") val history: List<History>,
+    @SerialName("timestamp") val timestamp: Long?,
 ) {
-	fun contentEquals(other: HistoryPackage): Boolean {
-		return Intrinsics.areEqual(history, other.history)
-	}
+    fun contentEquals(other: HistoryPackage): Boolean {
+        return Intrinsics.areEqual(history, other.history)
+    }
 }

@@ -11,22 +11,22 @@ import org.ktorm.database.Database
 import org.ktorm.entity.sequenceOf
 
 val Database.manga
-	get() = this.sequenceOf(MangaTable)
+    get() = this.sequenceOf(MangaTable)
 
 val Database.tags
-	get() = this.sequenceOf(TagsTable)
+    get() = this.sequenceOf(TagsTable)
 
 val Database.mangaTags
-	get() = this.sequenceOf(MangaTagsTable)
+    get() = this.sequenceOf(MangaTagsTable)
 
 val Database.categories
-	get() = this.sequenceOf(CategoriesTable)
+    get() = this.sequenceOf(CategoriesTable)
 
 val Database.users
-	get() = this.sequenceOf(UsersTable)
+    get() = this.sequenceOf(UsersTable)
 
 val Database.favourites
-	get() = this.sequenceOf(FavouritesTable)
+    get() = this.sequenceOf(FavouritesTable)
 
 val Database.history
-	get() = this.sequenceOf(HistoryTable)
+    get() = this.sequenceOf(HistoryTable)

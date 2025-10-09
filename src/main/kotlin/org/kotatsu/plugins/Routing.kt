@@ -6,13 +6,13 @@ import io.ktor.server.routing.routing
 import org.kotatsu.routes.*
 
 fun Application.configureRouting() {
-	install(AutoHeadResponse)
-	routing {
-		healthRoutes()
-		authRoutes()
-		userRoutes()
-		favouriteRoutes()
-		historyRoutes()
-		mangaRoutes()
-	}
+    install(AutoHeadResponse)
+    routing {
+        healthRoutes()
+        authRoutes()
+        userRoutes()
+        favouriteRoutes()
+        historyRoutes()
+        mangaRoutes()
+    }
 }

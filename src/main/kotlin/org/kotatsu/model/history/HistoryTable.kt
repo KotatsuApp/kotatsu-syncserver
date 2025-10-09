@@ -8,16 +8,16 @@ import org.ktorm.schema.int
 import org.ktorm.schema.long
 
 object HistoryTable : Table<HistoryEntity>("history") {
-	val manga = long("manga_id").references(MangaTable) { it.manga }.primaryKey()
+    val manga = long("manga_id").references(MangaTable) { it.manga }.primaryKey()
 
-	val createdAt = long("created_at").bindTo { it.createdAt }
-	val updatedAt = long("updated_at").bindTo { it.updatedAt }
-	val chapterId = long("chapter_id").bindTo { it.chapterId }
-	val page = int("page").bindTo { it.page }
-	val scroll = float("scroll").bindTo { it.scroll }
-	val percent = float("percent").bindTo { it.percent }
-	val chapters = int("chapters").bindTo { it.chapters }
-	val deletedAt = long("deleted_at").bindTo { it.deletedAt }
+    val createdAt = long("created_at").bindTo { it.createdAt }
+    val updatedAt = long("updated_at").bindTo { it.updatedAt }
+    val chapterId = long("chapter_id").bindTo { it.chapterId }
+    val page = int("page").bindTo { it.page }
+    val scroll = float("scroll").bindTo { it.scroll }
+    val percent = float("percent").bindTo { it.percent }
+    val chapters = int("chapters").bindTo { it.chapters }
+    val deletedAt = long("deleted_at").bindTo { it.deletedAt }
 
-	val userId = int("user_id").references(UsersTable) { it.user }.primaryKey()
+    val userId = int("user_id").references(UsersTable) { it.user }.primaryKey()
 }

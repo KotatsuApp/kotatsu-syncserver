@@ -15,19 +15,19 @@ import kotlin.text.toIntOrNull
 import kotlin.text.toLongOrNull
 
 fun Route.mangaRoutes() {
-	get("/manga") {
-		val offset = requireNotNull(call.request.queryParameters["offset"]?.toIntOrNull()) {
-			"Parameter \"offset\" is missing or invalid"
-		}
-		val limit = requireNotNull(call.request.queryParameters["limit"]?.toIntOrNull()) {
-			"Parameter \"limit\" is missing or invalid"
-		}
-		val manga = database.manga.drop(offset).take(limit).map { it.toManga() }
-		call.respond(manga)
-	}
-	get("/manga/{id}") {
-		val id = call.parameters["id"]?.toLongOrNull() ?: throw NotFoundException()
-		val manga = database.manga.find { x -> x.id eq id }?.toManga() ?: throw NotFoundException()
-		call.respond(manga)
-	}
+    get("/manga") {
+        val offset = requireNotNull(call.request.queryParameters["offset"]?.toIntOrNull()) {
+            "Parameter \"offset\" is missing or invalid"
+        }
+        val limit = requireNotNull(call.request.queryParameters["limit"]?.toIntOrNull()) {
+            "Parameter \"limit\" is missing or invalid"
+        }
+        val manga = database.manga.drop(offset).take(limit).map { it.toManga() }
+        call.respond(manga)
+    }
+    get("/manga/{id}") {
+        val id = call.parameters["id"]?.toLongOrNull() ?: throw NotFoundException()
+        val manga = database.manga.find { x -> x.id eq id }?.toManga() ?: throw NotFoundException()
+        call.respond(manga)
+    }
 }
