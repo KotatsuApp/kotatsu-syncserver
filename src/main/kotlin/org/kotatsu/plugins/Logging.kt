@@ -6,6 +6,14 @@ import org.slf4j.event.Level
 
 fun Application.configureLogging() {
     install(CallLogging) {
-        level = Level.ERROR
+        val loggingLevel = this@configureLogging.environment.config.property("kotatsu.logging_level").getString()
+        level = when (loggingLevel) {
+            "ERROR" -> Level.ERROR
+            "WARN" -> Level.WARN
+            "INFO" -> Level.INFO
+            "DEBUG" -> Level.DEBUG
+            "TRACE" -> Level.TRACE
+            else -> Level.INFO
+        }
     }
 }
