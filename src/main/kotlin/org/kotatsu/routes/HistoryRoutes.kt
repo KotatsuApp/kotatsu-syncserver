@@ -23,9 +23,7 @@ fun Route.historyRoutes() {
             }
 
             val response = withContext(Dispatchers.IO) {
-                database.useTransaction(TransactionIsolation.READ_COMMITTED) {
                     syncHistory(user, null)
-                }
             }
 
             call.respond(response)
@@ -38,11 +36,9 @@ fun Route.historyRoutes() {
             }
 
             val response = withContext(Dispatchers.IO) {
-                database.useTransaction(TransactionIsolation.READ_COMMITTED) {
-                    val result = syncHistory(user, request)
-                    user.setHistorySynchronized(System.currentTimeMillis())
-                    result
-                }
+                val result = syncHistory(user, request)
+                user.setHistorySynchronized(System.currentTimeMillis())
+                result
             }
 
             if (response.contentEquals(request)) {
