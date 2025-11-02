@@ -32,11 +32,9 @@ fun Route.favouriteRoutes() {
             }
 
             val response = withContext(Dispatchers.IO) {
-                database.useTransaction(TransactionIsolation.READ_COMMITTED) {
-                    val result = syncFavourites(user, request)
-                    user.setFavouritesSynchronized(System.currentTimeMillis())
-                    result
-                }
+                val result = syncFavourites(user, request)
+                user.setFavouritesSynchronized(System.currentTimeMillis())
+                result
             }
 
             if (response.contentEquals(request)) {
