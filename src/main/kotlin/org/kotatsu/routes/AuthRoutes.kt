@@ -3,6 +3,7 @@ package org.kotatsu.routes
 import com.auth0.jwt.JWT
 import com.auth0.jwt.algorithms.Algorithm
 import io.ktor.http.HttpStatusCode
+import io.ktor.server.mustache.MustacheContent
 import io.ktor.server.response.respond
 import io.ktor.server.response.respondText
 import io.ktor.server.routing.*
@@ -19,6 +20,7 @@ import org.ktorm.entity.find
 import java.time.Instant
 import java.util.Date
 import java.util.concurrent.TimeUnit
+import kotlin.collections.mapOf
 
 fun Route.authRoutes() {
     post<AuthRequest>("/auth") { request ->
@@ -66,11 +68,14 @@ fun Route.authRoutes() {
 
         val token = setPasswordResetToken(request, user)
 
-        val resetPasswordLink = "${baseUrl}/reset-password?token=$token\""
+        val resetPasswordLink = "${baseUrl}/reset-password?token=$token"
+
+        val html = renderTemplateToString("mail/forgot-password.hbs", mapOf("reset_password_link" to resetPasswordLink))
+
         mailService.send(
             to = user.email, subject = "Password reset",
             textBody = "You can reset your password in $resetPasswordLink",
-            htmlBody = "You can reset your password in <a href=\"$resetPasswordLink\">$resetPasswordLink</a>"
+            htmlBody = html
         )
 
         call.respond(HttpStatusCode.OK, "A password reset email was sent")
@@ -85,22 +90,7 @@ fun Route.authRoutes() {
 
         val deepLink = "kotatsu://reset-password?token=$token"
 
-        call.respondText(
-            """
-        <html>
-            <head>
-                <meta charset="UTF-8">
-                <script type="text/javascript">
-                    window.location.href = "$deepLink";
-                </script>
-            </head>
-            <body>
-                <p>If you are not redirected automatically, <a href="$deepLink">click here</a>.</p>
-            </body>
-        </html>
-        """.trimIndent(),
-            contentType = io.ktor.http.ContentType.Text.Html
-        )
+        call.respond(MustacheContent("pages/reset-password.hbs", mapOf("deep_link" to deepLink)))
     }
 
     post<ResetPasswordRequest>("/reset-password") { request ->
