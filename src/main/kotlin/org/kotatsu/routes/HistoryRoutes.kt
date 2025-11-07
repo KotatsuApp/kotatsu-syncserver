@@ -23,7 +23,7 @@ fun Route.historyRoutes() {
             }
 
             val response = withContext(Dispatchers.IO) {
-                    syncHistory(user, null)
+                syncHistory(user, null)
             }
 
             call.respond(response)

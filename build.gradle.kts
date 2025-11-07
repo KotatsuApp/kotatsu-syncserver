@@ -34,6 +34,8 @@ dependencies {
     implementation(libs.ktor.server.netty)
     implementation(libs.ktor.server.auth)
     implementation(libs.ktor.server.auth.jwt)
+    implementation(libs.ktor.server.mustache)
+    implementation(libs.ktor.server.rate.limit)
     implementation(libs.ktor.server.call.logging)
     implementation(libs.ktor.server.compression)
     implementation(libs.ktor.server.status.pages)
@@ -47,6 +49,7 @@ dependencies {
     implementation(libs.mysql.connector.j)
     implementation(libs.mariadb.java.client)
     implementation(libs.logback.classic)
+    implementation(libs.jakarta.mail)
     testImplementation(libs.ktor.server.test.host)
     testImplementation(libs.kotlin.test.junit)
 }

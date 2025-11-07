@@ -20,8 +20,11 @@ services:
     extends:
       service: server
       file: docker-compose.common.yaml
+    restart: unless-stopped
     environment:
       DATABASE_DIALECT: mysql
+    ports:
+      - "${SERVER_PORT:-8080}:8080"
     depends_on:
       db:
         condition: service_healthy

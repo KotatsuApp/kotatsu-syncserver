@@ -20,6 +20,9 @@ services:
     extends:
       service: server
       file: docker-compose.common.yaml
+    restart: unless-stopped
+    ports:
+      - "${SERVER_PORT:-8080}:8080"
     depends_on:
       db:
         condition: service_healthy
