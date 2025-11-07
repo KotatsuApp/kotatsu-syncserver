@@ -8,5 +8,6 @@ services:
       DATABASE_PASSWORD: ${DATABASE_PASSWORD:-password}
       DATABASE_NAME: ${DATABASE_NAME:-kotatsu_db}
       DATABASE_PORT: 3306
+      BASE_URL: ${BASE_URL:-http://localhost:8080}
       JWT_SECRET: ${JWT_SECRET:-secret-string}
       ALLOW_NEW_REGISTER: ${ALLOW_NEW_REGISTER:-true}
