@@ -105,6 +105,7 @@ By default, emails (e.g. password reset messages) are printed to the server cons
 To enable real email sending, provide the following environment variables when starting the server:
 
 ```shell
+-e BASE_URL=your_server_address \
 -e SMTP_HOST=your_smtp_host \
 -e SMTP_PORT=your_smtp_port \
 -e SMTP_USER=your_smtp_user \
