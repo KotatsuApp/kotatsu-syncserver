@@ -24,6 +24,11 @@ Synchronization is needed to store your collection of favorites, history and cat
 > [!TIP]
 > You can find the entire list of environment variables in the .env.example file.
 
+Supported databases: 
+
+* MySQL: 8.4+
+* MariaDB: 11.7+ or 11.4.5+
+
 ### Docker
 
 #### Build image container:
