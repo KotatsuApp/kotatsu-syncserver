@@ -35,6 +35,7 @@ dependencies {
     implementation(libs.ktor.server.auth)
     implementation(libs.ktor.server.auth.jwt)
     implementation(libs.ktor.server.mustache)
+    implementation(libs.ktor.server.rate.limit)
     implementation(libs.ktor.server.call.logging)
     implementation(libs.ktor.server.compression)
     implementation(libs.ktor.server.status.pages)
